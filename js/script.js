@@ -29,10 +29,13 @@ $(function () {
 				var bar = document.querySelector('.navbar-default');
 				bar.style.backgroundColor = bodyStyles.backgroundColor;
 			},1000);
-
+			// set analytics event when switching sections
+			ga('set', 'page', '/' + location.hash);
+			//see https://developers.google.com/analytics/devguides/collection/analyticsjs/single-page-applications
 		}else{
 			var bar = document.querySelector('.navbar-default');
 			bar.style.backgroundColor='';
+			ga('set', 'page', '/');
 		}
 
 		event.preventDefault();
