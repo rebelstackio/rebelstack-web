@@ -1007,7 +1007,7 @@ ul.styled-list.list-star li:before {
 }
 .portfolio {
   padding: 100px 0 0;
-  background: #5a6064;
+  background: var(--google-yellow-700);
 }
 .filter {
   text-align: center;
