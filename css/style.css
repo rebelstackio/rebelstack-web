@@ -1007,6 +1007,7 @@ ul.styled-list.list-star li:before {
 }
 .portfolio {
   padding: 100px 0 0;
+  background: #5a6064;
 }
 .filter {
   text-align: center;
@@ -1334,6 +1335,7 @@ ul.styled-list.list-star li:before {
 }
 .blog {
   padding: 100px 0;
+  background-color: var(--google-green-700);
 }
 .blog-post {
   border-bottom: 1px dotted #f2f2f2;

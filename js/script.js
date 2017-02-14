@@ -147,7 +147,7 @@ console.log('me scrolleo')
 		$('#sept-main-nav li a').each(function () {
 	        var currLink = $(this);
 	        var refElement = $(currLink.attr("href"));
-	        if (refElement.position().top <= offset && refElement.position().top + refElement.height() >= offset) {
+	        if (refElement.position().top -50 <= offset && refElement.position().top + refElement.height() >= offset) {
 				var hash=currLink.attr("href");
 				if(hash!=='#home'){
 					var bodyStyles = window.getComputedStyle(document.querySelector(hash));
