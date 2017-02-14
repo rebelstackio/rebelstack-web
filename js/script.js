@@ -57,7 +57,7 @@ console.log('me scrolleo')
 		}, 1000, 'easeInOutExpo', function() {
 			location.hash = hash;
 		});
-		console.log(hash);
+		ga('set', 'page', '/' + hash);
 		var bodyStyles = window.getComputedStyle(document.querySelector(hash));
 		console.log(bodyStyles);
 	}
