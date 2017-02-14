@@ -8,14 +8,11 @@
  * -------------------------------------------------------------------
  * This theme under "Attribution-NonCommercial CC BY-NC". You can't remove footer credit link.
  */
-// --primary_color: #4ecdc4;
-// --primary_color_hover: #33b5ac;
---primary_color: #296AA4; 
---primary_color_hover: #296AA4;
+
 
 body {
   font-family: "Open Sans";
-  color: #808080;
+  color: white;
   font-weight: 400;
   font-size: 14px;
   line-height: 26px;
@@ -26,7 +23,7 @@ p {
   margin-bottom: 26px;
 }
 a {
-  color: var(--primary_color);
+  color: var( --primary-text-color);
   text-decoration: none !important;
   -webkit-transition: color 0.3s;
           transition: color 0.3s;
@@ -292,13 +289,13 @@ h6 {
 }
 .btn-main {
   color: #fff;
-  background-color: var(--primary_color);
+  background-color: var(--gradient-bg-color1);
   border-color: var(--primary_color);
 }
 .btn-main:hover,
 .btn-main:focus,
 .btn-main:active {
-  background-color: var(--primary_color_hover);
+  background-color: var(--gradient-bg-color2);
   border-color: var(--primary_color_hover);
   color: #fff;
 }
@@ -315,10 +312,11 @@ h6 {
 .section-title {
   margin-bottom: 70px;
 }
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,100i');
 .section-title h3 {
-  font-family: "Oswald";
+  font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
-  color: #4c4c4c;
+  color: var(--primary-text-color);
   font-weight: 400;
   letter-spacing: 2px;
   font-size: 28px;
@@ -331,13 +329,13 @@ h6 {
   padding: 0 10px;
 }
 .section-title p {
-  font-family: "Oswald";
+   font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
-  color: var(--primary_color);
-  font-size: 38px;
+  color: var(--secondary-text-color);
+  font-size: 18px;
   line-height: 58px;
-  font-weight: 700;
-  letter-spacing: 3px;
+  font-weight: 100;
+
 }
 .section-title.st-center {
   text-align: center;
@@ -348,9 +346,9 @@ h6 {
 .section-title:before {
   content: "";
   display: block;
-  width: 70px;
+  width: 120px;
   height: 60px;
-  background-image: url(../images/title-top.png);
+  background-image: url(../images/logo.svg);
   background-repeat: no-repeat;
   opacity: 0.5;
 }
@@ -526,7 +524,7 @@ h6 {
   margin-top: 80px;
 }
 .st-highlight {
-  color: var(--primary_color);
+  color: var(--dark-theme-base-color);
 }
 .navbar-default {
   background-color: transparent;
@@ -540,7 +538,6 @@ h6 {
   background: rgba(0,0,0,0.6);
 }
 .st-navbar-mini .navbar-default {
-  background-color: rgba(40, 40, 40, 0.95);
   height: 60px;
 }
 .st-navbar-mini .navbar-default .navbar-brand {
@@ -649,12 +646,9 @@ h6 {
 }
 .about {
   padding: 100px 0 0;
-  color: white;
-  background: #c1c1c1;
-background: -moz-linear-gradient(top,  #c1c1c1 0%, #606060 100%);
-background: -webkit-linear-gradient(top,  #c1c1c1 0%,#606060 100%);
-background: linear-gradient(to bottom,  #c1c1c1 0%,#606060 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c1c1c1', endColorstr='#606060',GradientType=0 );
+  color: var(--primary-text-color);
+  background-color: var(--gradient-bg-color1);
+
 
 }
 .st-member {
@@ -921,7 +915,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c1c1c1', end
   width: 102px;
   line-height: 100px;
   font-size: 42px;
-  color: #fff;
+  color: white;
   margin: 0 auto 20px;
   background-color: var(--primary_color);
   border-radius: 50%;
@@ -939,11 +933,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c1c1c1', end
   line-height: 45px;
   letter-spacing: 1px;
   font-weight: 400;
-  color: #4c4c4c;
+  color: white;
   margin-bottom: 10px;
 }
 .st-feature:hover .st-feature-icon {
-  color: var(--primary_color);
+  color:white;
   border-color: var(--primary_color);
   background-color: transparent;
   -webkit-transform: rotate(360deg) scale(1.8);
@@ -964,7 +958,7 @@ ul.styled-list li:before {
   display: inline-block;
   margin-left: -1.5em;
   width: 1.5em;
-  color: var(--primary_color);
+  color: white;
 }
 ul.styled-list.list-caret li:before {
   content: '\f0da';
@@ -1159,10 +1153,9 @@ ul.styled-list.list-star li:before {
 }
 .testimonials {
   padding: 100px 0;
-  background-image: url(../images/testimonials.png);
+  background-color:var(--primary-background-color);
   background-size: cover;
   background-attachment: fixed;
-  background-color: #000;
   color: #fff;
 }
 .testimonial .testimonial-img {
@@ -1310,7 +1303,7 @@ ul.styled-list.list-star li:before {
 }
 .faq-sec {
   padding: 100px 0 50px;
-  background-color: #eee;
+  background-color: var(--google-yellow-700);
 }
 .faq {
   margin-bottom: 50px;
@@ -1728,4 +1721,8 @@ footer.site-footer a:hover {
 
 body.internal .blog {
   padding-top: 110px;
+}
+
+.service{
+     background-color:#213e55;
 }

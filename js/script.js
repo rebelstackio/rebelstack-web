@@ -7,9 +7,11 @@ $(function () {
 	// Custom Scrollbar
 	var nice = $("html").niceScroll({
 		cursorwidth: 8,
-		cursorborder: "0px solid #fff",
+		cursorborder: "1px solid #fff",
 		cursorborderradius: '0'
 	});
+
+
 
 	$('.main-nav a:not(.dropdown-toggle)').bind('click', function(event) {
 		var $anchor = $(this);
@@ -19,6 +21,19 @@ $(function () {
 		}, 1500, 'easeInOutExpo', function() {
 			location.hash = $anchor.attr('href').substr(1);
 		});
+		var hash = $anchor.attr('href');
+		console.log(hash)
+		if(hash!=='#home'){
+			setTimeout(()=>{
+				var bodyStyles = window.getComputedStyle(document.querySelector(hash));
+				var bar = document.querySelector('.navbar-default');
+				bar.style.backgroundColor = bodyStyles.backgroundColor;
+			},1000);
+
+		}else{
+			var bar = document.querySelector('.navbar-default');
+			bar.style.backgroundColor='';
+		}
 
 		event.preventDefault();
 	});
@@ -27,8 +42,9 @@ $(function () {
 		var $anchor = $(this);
 
 		scrollto($anchor.attr('href'));
-
+console.log('me scrolleo')
 		event.preventDefault();
+
 	});
 
 	function scrollto(hash) {
@@ -38,6 +54,9 @@ $(function () {
 		}, 1000, 'easeInOutExpo', function() {
 			location.hash = hash;
 		});
+		console.log(hash);
+		var bodyStyles = window.getComputedStyle(document.querySelector(hash));
+		console.log(bodyStyles);
 	}
 
 	$('body').on('keydown', function(event) {
@@ -48,11 +67,13 @@ $(function () {
 			var nextHash = nextSection[0] ? "#" + nextSection[0].id : "#home";
 			scrollto(nextHash);
 			event.stopPropagation();
+
 		} else if (event.keyCode === 38) {
 			var prevSection = $('section' + currentHash).prevAll('section');
 			var prevHash = prevSection[0] ? "#" + prevSection[0].id : "#home";
 			scrollto(prevHash);
 			event.stopPropagation();
+
 		}
 
 	})
@@ -122,6 +143,23 @@ $(function () {
 	    } else if (offset <= 119) {
 	    	$('.st-navbar').removeClass("st-navbar-mini");
 	    }
+
+		$('#sept-main-nav li a').each(function () {
+	        var currLink = $(this);
+	        var refElement = $(currLink.attr("href"));
+	        if (refElement.position().top <= offset && refElement.position().top + refElement.height() >= offset) {
+				var hash=currLink.attr("href");
+				if(hash!=='#home'){
+					var bodyStyles = window.getComputedStyle(document.querySelector(hash));
+					var bar = document.querySelector('.navbar-default');
+					bar.style.backgroundColor = bodyStyles.backgroundColor;
+				}else{
+					var bar = document.querySelector('.navbar-default');
+					bar.style.backgroundColor='';
+				}
+	        }
+	    });
+
 	});
 
 
