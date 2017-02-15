@@ -187,6 +187,13 @@ console.log('me scrolleo')
 			stopOnHover:true,
     });
 
+		// Custom Navigation Events
+    $(document).on('click', '.owl-item', function(){
+			var itemCount = $('.owl-item').length;
+      n = ($(this).index() + 1) % itemCount;
+      $('.owl-wrapper').trigger('owl.goTo', n);
+    });
+
     ////// mailchimp //////
     $(".subscribe-form").ajaxChimp({
         callback: mcCallback,
