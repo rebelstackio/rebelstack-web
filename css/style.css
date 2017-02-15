@@ -1049,14 +1049,15 @@ ul.styled-list.list-star li:before {
 .grid figure figcaption > a {
   z-index: 1000;
   position: absolute;
-  right: 50%;
-  bottom: 50px;
-  margin-right: -67px;
+  right: 30%;
+  bottom: 30px;
+  /* margin-right: -67px; */
   opacity: 0;
   -webkit-transform: translate3d(0, 60px, 0);
-          transform: translate3d(0, 60px, 0);
+  transform: translate3d(0, 60px, 0);
   -webkit-transition: -webkit-transform 0.35s, opacity 0.35s;
-          transition: transform 0.35s, opacity 0.35s;
+  transition: transform 0.35s, opacity 0.35s;
+  left: 30%;
 }
 .grid figure h2 {
   color: #fff;
