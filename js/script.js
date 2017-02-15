@@ -175,6 +175,7 @@ console.log('me scrolleo')
         pagination: true,
         singleItem:true,
         autoPlay: true,
+				stopOnHover:true,
         navigationText: ['<i class="ct-etp etp-arrow-left7"></i>', '<i class="ct-etp etp-arrow-right8"></i>'],
         transitionStyle: "backSlide"
     });
@@ -182,7 +183,8 @@ console.log('me scrolleo')
     $('.clients-carousel').owlCarousel({
     	items: 5,
     	autoPlay: true,
-    	pagination: false
+    	pagination: false,
+			stopOnHover:true,
     });
 
     ////// mailchimp //////
