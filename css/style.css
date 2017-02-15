@@ -455,12 +455,10 @@ h6 {
   }
 }
 .home {
-  background-image: url(../images/hero-img9.jpg);
   background-position: top center;
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: #000;
   padding: 100px 0;
   position: relative
   /* Temp CSS */
