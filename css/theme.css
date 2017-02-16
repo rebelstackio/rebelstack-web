@@ -5,6 +5,7 @@
         * color, then switching from a light to a dark theme is just a matter of
         * changing the value of `--primary-text-color` in your application.
         */
+        --bg-about-color:#2891cd;
         --gradient-bg-color-init:var(--paper-purple-900);
         --gradient-bg-color-end:#372d69;
 

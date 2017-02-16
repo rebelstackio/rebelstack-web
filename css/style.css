@@ -289,13 +289,13 @@ h6 {
 }
 .btn-main {
   color: #fff;
-  background-color: var(--gradient-bg-color1);
+  background-color: var(--bg-about-color);
   border-color: var(--primary_color);
 }
 .btn-main:hover,
 .btn-main:focus,
 .btn-main:active {
-  background-color: var(--gradient-bg-color2);
+  background-color: var(--bg-about-color);
   border-color: var(--primary_color_hover);
   color: #fff;
 }
@@ -645,7 +645,7 @@ h6 {
 .about {
   padding: 100px 0 0;
   color: var(--primary-text-color);
-  background-color: var(--gradient-bg-color1);
+  background-color: var(--bg-about-color);
 
 
 }
