@@ -314,7 +314,7 @@ h6 {
 }
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,100i');
 .section-title h3 {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Oswald', sans-serif;
   text-transform: uppercase;
   color: var(--primary-text-color);
   font-weight: 400;
