@@ -1790,7 +1790,7 @@ body.internal .blog {
     background-image: url("../images/logos/css3_over.png");
 }
 .redis{
-    background-image: url("../images/logos/redis.png");
+    background-image: url("../images/logos/redis_default.png");
 }
 .redis:hover,.redis.active{
     background-image: url("../images/logos/redis_over.png");
