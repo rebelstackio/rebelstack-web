@@ -1798,9 +1798,9 @@ body.internal .blog {
   font-size: 16px;
   border-radius: 5px;
   margin-bottom: 30px;
-  /* width: 90%; */
+  width: 90%;
   position: relative;
-  margin-top: 15px;
+  margin-top: 30px;
 }
 .chat .chat-history .message:after {
 content: "";

@@ -10,6 +10,8 @@ ContactUsForm.FOCUSED = false;
 
 ContactUsForm.LAST_MESSAGE_FROM_CLIENT = true;
 
+ContactUsForm.TRUNCATED_LENGTH = 50;
+
 /**
  * _init - Init methods
  *
@@ -129,6 +131,11 @@ ContactUsForm.saveContatForm = function _saveContatForm( e ){
 		//TODO SAVE MESSAGE ON FIREBASE
 
 		ContactUsForm.buildChatComponent(message);
+
+		// ASK FOR PERMISSION TO WEB NOTIFICATION
+		if ( window.Notification ){
+			window.Notification.requestPermission();
+		}
 	}
 }
 
@@ -169,6 +176,59 @@ ContactUsForm.buildChatComponent = function _buildChatComponent(message){
 	$( "#chat-container" ).fadeIn( "slow" );
 }
 
+ContactUsForm.buildServerMessage = function _buildClientMessage(message){
+	var message = 'default chat message';
+	// <li class="clearfix">
+	// 	<div class="message-data align-right">
+	// 		<span class="message-data-name">RebelStack </span> <i class="fa fa-circle me"></i>
+	// 	</div>
+	// 	<div class="message me-message float-right"> We should take a look at your onboarding and service delivery workflows, for most businesess there are many ways to save time and not compromise quality.	</div>
+	// </li>
+
+	var messageContainer = document.createElement('li');
+	messageContainer.setAttribute('style', 'display:none;');
+	messageContainer.setAttribute('class', 'clearfix');
+	var messageDataContainer = document.createElement('div');
+	messageDataContainer.setAttribute('class', 'message-data align-right');
+
+	var messageDataTextContainer = document.createElement('span');
+	messageDataTextContainer.setAttribute('class', 'message-data-name');
+
+	var icon = document.createElement('i');
+	icon.setAttribute('class', 'fa fa-circle me');
+
+	var strongText = document.createElement('strong');
+	var messageDataText = document.createTextNode(' RebelStack Team - ');
+	strongText.appendChild(messageDataText);
+
+	var time = ContactUsForm.buildDateMessageFormat();
+
+	var messageTextContainer = document.createElement('div');
+	messageTextContainer.setAttribute('class', 'message me-message float-right');
+
+	var _message = document.createTextNode(message);
+
+	messageDataTextContainer.appendChild(icon);
+	messageDataTextContainer.appendChild(strongText);
+	messageDataTextContainer.appendChild(time);
+
+	messageTextContainer.appendChild(_message);
+
+	messageDataContainer.appendChild(messageDataTextContainer);
+	messageDataContainer.appendChild(messageTextContainer);
+
+	messageContainer.appendChild(messageDataContainer);
+
+	//ADD TO DOM
+	var chatList = document.getElementById('chat-list');
+	chatList.appendChild(messageContainer);
+
+	//UGG JQUERY
+	$(messageContainer).fadeIn( "slow" );
+
+	ContactUsForm.sendBrowserNotification(message);
+}
+
 
 /**
  * _buildClientMessage - Build DOM elements from client's message
@@ -202,14 +262,14 @@ ContactUsForm.buildClientMessage = function _buildClientMessage(message){
 	var messageTextContainer = document.createElement('div');
 	messageTextContainer.setAttribute('class', 'message you-message');
 
-	var message = document.createTextNode(message);
+	var _message = document.createTextNode(message);
 
 
 	messageDataTextContainer.appendChild(icon);
 	messageDataTextContainer.appendChild(strongText);
 	messageDataTextContainer.appendChild(time);
 
-	messageTextContainer.appendChild(message);
+	messageTextContainer.appendChild(_message);
 
 	messageDataContainer.appendChild(messageDataTextContainer);
 	messageDataContainer.appendChild(messageTextContainer);
@@ -226,6 +286,35 @@ ContactUsForm.buildClientMessage = function _buildClientMessage(message){
 	//UGG JQUERY
 	$(messageContainer).fadeIn( "slow" );
 
+}
+
+ /**
+  * _sendBrowserNotification - Send browser notification to the user
+  *
+  * @param  {type} message Custom message
+  */
+ContactUsForm.sendBrowserNotification = function _sendBrowserNotification(message){
+	if ( window.Notification ) {
+		if ( window.Notification.permission == "granted" ) {
+			if ( message.length > ContactUsForm.TRUNCATED_LENGTH ){
+				message = message.substr(0,ContactUsForm.TRUNCATED_LENGTH) + '...';
+			}
+
+			var notification = new Notification(
+				'New Message from RebelStack\'s Team',
+				{
+					icon: '../images/logo-notification.png',
+					body: message
+				}
+			);
+
+			notification.onclick = function () {
+				location.href = "#message-zone";
+			};
+		}
+	} else {
+		console.log("Notifications are not supported for this Browser/OS version yet.");
+	}
 }
 
 
@@ -279,7 +368,7 @@ ContactUsForm.buildDateMessageFormat = function _buildDateMessageFormat(){
 		day: "numeric"
 	};
 
-	var strDate = date.toLocaleTimeString("es-pe", options);
+	var strDate = date.toLocaleTimeString("en-us", options);
 	var time = document.createTextNode(strDate);
 	return time;
 }
