@@ -493,6 +493,7 @@ h6 {
   font-weight: 300;
   letter-spacing: 2px;
   margin-bottom: 0;
+  font-size: 24px;
 }
 .home .hero-txt .hero-work:after {
   content: "";
@@ -1726,4 +1727,9 @@ body.internal .blog {
 
 .service{
      background-color:#213e55;
+}
+
+.about-center{
+  font-size: 22px;
+  text-align: justify;
 }
