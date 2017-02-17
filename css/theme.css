@@ -6,6 +6,7 @@
         * changing the value of `--primary-text-color` in your application.
         */
         --bg-about-color:#2891cd;
+        --bg-contact-color:#319483;
         --gradient-bg-color-init:var(--paper-purple-900);
         --gradient-bg-color-end:#372d69;
 

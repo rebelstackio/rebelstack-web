@@ -343,15 +343,7 @@ h6 {
 .section-title.st-center:before {
   margin: auto;
 }
-.section-title:before {
-  content: "";
-  display: block;
-  width: 120px;
-  height: 60px;
-  background-image: url(../images/logo.svg);
-  background-repeat: no-repeat;
-  opacity: 0.5;
-}
+
 .bottom-line {
   margin-bottom: 20px;
 }
@@ -542,7 +534,7 @@ h6 {
   padding: 15px 15px;
 }
 .st-navbar-mini .navbar-default .navbar-brand img {
-  height: 30px;
+  height: 48px;
 }
 .st-navbar-mini .navbar-default .navbar-nav > li.active > a,
 .st-navbar-mini .navbar-default .navbar-nav > li.active a:hover,
@@ -557,7 +549,7 @@ h6 {
           transition: padding 0.3s;
 }
 .navbar-brand img {
-  height: 48px;
+  height: 60px;
   -webkit-transition: height 0.3s;
           transition: height 0.3s;
 }
@@ -1603,7 +1595,7 @@ a.social.rss:hover {
 }
 .contact {
   padding: 120px 0;
-  background-color: #eee;
+  background-color: var(--bg-contact-color);
 }
 .contact form input,
 .contact form textarea {
