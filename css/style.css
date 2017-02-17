@@ -1725,3 +1725,91 @@ body.internal .blog {
   font-size: 22px;
   text-align: justify;
 }
+
+.footer-technology{
+    position: fixed;
+    width:100%;
+    height: 40px;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 1);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    opacity:1;
+    visibility: visible;
+    max-height: 40px;
+     transition:all .5s linear;
+}
+.footer-technology.hidden{
+    height:0;
+    opacity: 0;
+    visibility: hidden;
+     transition:all .5s linear;
+    max-height: 0;
+    transition: max-height 1s ease-out;
+}
+.tech-logo{
+    height: 30px;
+    width: 80px;
+    background-repeat:no-repeat;
+    background-size:contain;
+    background-position:bottom;
+    transform: scale(1);
+    padding-top: 30px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    top:0;
+    display: block;
+}
+.tech-logo:hover{
+    top: -30px;
+    position: absolute;
+    height:50px;
+    padding-top: 50px;
+    transform: scale(1.4);
+    transition: all 0.3s ease-in-out;
+}
+.tech-logo:hover:after {
+ content:"not-working";
+}
+.nodejs{
+    background-image: url("../images/logos/node_default.png");
+}
+.nodejs:hover{
+    background-image: url("../images/logos/node_over.png");
+}
+.html5{
+    background-image: url("../images/logos/html5_default.png");
+}
+.html5:hover{
+    background-image: url("../images/logos/html5_over.png");
+}
+.css3{
+    background-image: url("../images/logos/css3_default.png");
+}
+.css3:hover{
+    background-image: url("../images/logos/css3_over.png");
+}
+.redis{
+    background-image: url("../images/logos/redis.png");
+}
+.redis:hover{
+    background-image: url("../images/logos/redis_over.png");
+}
+.firebase{
+    background-image: url("../images/logos/firebase_default.png");
+}
+.firebase:hover{
+    background-image: url("../images/logos/firebase_over.png");
+}
+.github{
+    background-image: url("../images/logos/github_default.png");
+}
+.github:hover{
+    background-image: url("../images/logos/github_over.png");
+}
+.docker{
+    background-image: url("../images/logos/docker_default.png");
+}
+.docker:hover{
+    background-image: url("../images/logos/docker_over.png");
+}

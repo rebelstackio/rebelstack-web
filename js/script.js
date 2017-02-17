@@ -156,7 +156,9 @@ console.log('me scrolleo')
 					var bodyStyles = window.getComputedStyle(document.querySelector(hash));
 					var bar = document.querySelector('.navbar-default');
 					bar.style.backgroundColor = bodyStyles.backgroundColor;
+					$(".footer-technology").removeClass("hidden");
 				}else{
+					$(".footer-technology").addClass("hidden");
 					var bar = document.querySelector('.navbar-default');
 					bar.style.backgroundColor='';
 				}
