@@ -1760,7 +1760,7 @@ body.internal .blog {
     top:0;
     display: block;
 }
-.tech-logo:hover{
+.tech-logo:hover,.tech-logo.active{
     top: -30px;
     position: absolute;
     height:50px;
@@ -1774,42 +1774,78 @@ body.internal .blog {
 .nodejs{
     background-image: url("../images/logos/node_default.png");
 }
-.nodejs:hover{
+.nodejs:hover,.nodejs.active{
     background-image: url("../images/logos/node_over.png");
 }
 .html5{
     background-image: url("../images/logos/html5_default.png");
 }
-.html5:hover{
+.html5:hover,.html5.active{
     background-image: url("../images/logos/html5_over.png");
 }
 .css3{
     background-image: url("../images/logos/css3_default.png");
 }
-.css3:hover{
+.css3:hover,.css3.active{
     background-image: url("../images/logos/css3_over.png");
 }
 .redis{
     background-image: url("../images/logos/redis.png");
 }
-.redis:hover{
+.redis:hover,.redis.active{
     background-image: url("../images/logos/redis_over.png");
 }
 .firebase{
     background-image: url("../images/logos/firebase_default.png");
 }
-.firebase:hover{
+.firebase:hover,.firebase.active{
     background-image: url("../images/logos/firebase_over.png");
 }
 .github{
     background-image: url("../images/logos/github_default.png");
 }
-.github:hover{
+.github:hover,.github.active{
     background-image: url("../images/logos/github_over.png");
 }
 .docker{
     background-image: url("../images/logos/docker_default.png");
 }
-.docker:hover{
+.docker:hover,.docker.active{
     background-image: url("../images/logos/docker_over.png");
+}
+.python{
+    background-image: url("../images/logos/python_default.png");
+}
+.python:hover,.python.active{
+    background-image: url("../images/logos/python_over.png");
+}
+.ruby{
+    background-image: url("../images/logos/ruby_default.png");
+}
+.ruby:hover,.ruby.active{
+    background-image: url("../images/logos/ruby_over.png");
+}
+.bash{
+    background-image: url("../images/logos/bash_default.png");
+}
+.bash:hover,.bash.active{
+    background-image: url("../images/logos/bash_over.png");
+}
+.ubuntu{
+    background-image: url("../images/logos/ubuntu_default.png");
+}
+.ubuntu:hover,.ubuntu.active{
+    background-image: url("../images/logos/ubuntu_over.png");
+}
+.vagrant{
+    background-image: url("../images/logos/vagrant_default.png");
+}
+.vagrant:hover,.vagrant.active{
+    background-image: url("../images/logos/vagrant_over.png");
+}
+.postgresql{
+    background-image: url("../images/logos/postgresql_default.png");
+}
+.postgresql:hover,.postgresql.active{
+    background-image: url("../images/logos/postgresql_over.png");
 }

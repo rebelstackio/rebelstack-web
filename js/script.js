@@ -126,7 +126,14 @@ console.log('me scrolleo')
     ,fading = $('.st-home-unit')
     ,fading2 = $('.hero-overlayer')
 	;
+	var index_tec=0;
+setInterval(function(){
+	$(".footer-technology .container .row div:eq( "+index_tec+") a").removeClass("active");
+	index_tec++;
+	if(index_tec>=12) index_tec=0;
+	$(".footer-technology .container .row div:eq( "+index_tec+") a").addClass("active");
 
+},4000);
 	$(window).bind('scroll', function(){
 	    var offset = $(document).scrollTop()
 	        ,opacity=0
