@@ -157,7 +157,6 @@ ContactUsForm.buildChatComponent = function _buildChatComponent(message){
 	chatUl.setAttribute('class', 'chat-ul');
 	chatUl.setAttribute('id', 'chat-list');
 
-	chatUl.appendChild(ContactUsForm.buildClientMessage(message));
 	chatHistoryDiv.appendChild(chatUl);
 	chatDiv.appendChild(chatHistoryDiv);
 	chatDiv.appendChild(messageZone);
@@ -165,14 +164,14 @@ ContactUsForm.buildChatComponent = function _buildChatComponent(message){
 	form.innerHTML = "";
 	chatDiv.setAttribute('style', 'display:none;');
 	form.appendChild(chatDiv);
+	ContactUsForm.buildClientMessage(message);
+		//UGG JQUERY
 	$( "#chat-container" ).fadeIn( "slow" );
 }
 
 
 /**
  * _buildClientMessage - Build DOM elements from client's message
- *
- * @return {type}	description
  */
 ContactUsForm.buildClientMessage = function _buildClientMessage(message){
 	// <li>
@@ -184,6 +183,7 @@ ContactUsForm.buildClientMessage = function _buildClientMessage(message){
 	// 	</div>
 	// </li>
 	var messageContainer = document.createElement('li');
+	messageContainer.setAttribute('style', 'display:none;');
 	var messageDataContainer = document.createElement('div');
 	messageDataContainer.setAttribute('class', 'message-data');
 
@@ -219,7 +219,12 @@ ContactUsForm.buildClientMessage = function _buildClientMessage(message){
 	//FLAG
 	//ContactUsForm.LAST_MESSAGE_FROM_CLIENT = true
 
-	return messageContainer;
+	//ADD TO DOM
+	var chatList = document.getElementById('chat-list');
+	chatList.appendChild(messageContainer);
+
+	//UGG JQUERY
+	$(messageContainer).fadeIn( "slow" );
 
 }
 
@@ -238,14 +243,12 @@ ContactUsForm.buildMessageZone = function _buildMessageZone(){
 	message.setAttribute('rows', '2');
 	message.setAttribute('required', 'required');
 	message.addEventListener('keypress', function(event){
-		var chatList = document.getElementById('chat-list');
 		var key = event.keyCode;
 		if (key === 13) {
 			event.preventDefault();
 			var message = event.target.value;
 			event.target.value = "";
-			var message = ContactUsForm.buildClientMessage(message);
-			chatList.appendChild(message);
+			ContactUsForm.buildClientMessage(message);
 		}
 	});
 	return message;
