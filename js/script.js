@@ -170,6 +170,18 @@ console.log('me scrolleo')
 
 
 
+	$(".apps-carousel ul").owlCarousel({
+        items: 1,
+        navigation: false,
+        pagination: true,
+        singleItem:true,
+        autoPlay: true,
+				stopOnHover:true,
+        navigationText: ['<i class="ct-etp etp-arrow-left7"></i>', '<i class="ct-etp etp-arrow-right8"></i>'],
+        transitionStyle: "backSlide"
+    });
+
+
 
 	$(".testimonials-carousel ul").owlCarousel({
         items: 1,

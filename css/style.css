@@ -1206,6 +1206,108 @@ ul.styled-list.list-star li:before {
   padding: 0;
   display: block;
 }
+
+
+
+#vco {
+	background-image:url('../images/codebanner1400x425.jpg');
+}
+
+
+
+
+
+.apps {
+  padding: 100px 0;
+  background-color:var(--primary-background-color);
+  background-size: cover;
+  background-attachment: fixed;
+  color: #fff;
+}
+
+.apps .section-title {
+  margin-bottom:0;
+  text-shadow: rgba(80,80,255,0.7) 0 0 10px;
+}
+.app {
+  background-color:rgba(0,10,20,0.7);
+  border-radius:8px;
+
+}
+.app .app-img {
+  float: left;
+  margin-right: 30px;
+  position: relative;
+}
+.app .app-img:after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  background-color: var(--primary_color);
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+}
+.app .app-img:before {
+  font-family: "Oswald";
+  content: '';
+  font-size: 40px;
+  position: absolute;
+  bottom: 1%;
+  left: 12%;
+  z-index: 99;
+}
+.app .app-img img {
+  border-radius: 50%;
+  max-width: 200px;
+}
+.app blockquote {
+  border-width: 0;
+}
+
+.app blockquote>header {
+  font-weight:bold;
+  font-size:larger;
+}
+
+.app blockquote p {
+  font-style: italic;
+  font-weight: 300;
+  margin-bottom:1em;
+}
+.app blockquote footer,
+.app blockquote small,
+.app blockquote .small {
+  color: #fff;
+}
+.app-carousel {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.app-carousel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.apps-carousel ul li {
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+
+
+
+video.bgvideo {
+	position:absolute;
+	width:100%;
+}
+
+
+
+
 .pricing {
   padding: 100px 0;
 }
