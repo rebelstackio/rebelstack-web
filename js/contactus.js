@@ -12,11 +12,23 @@ ContactUsForm.LAST_MESSAGE_FROM_CLIENT = true;
 
 ContactUsForm.TRUNCATED_LENGTH = 50;
 
+ContactUsForm.LAST_CLIENT_MESSAGE = null;
+
+ContactUsForm.SEND_MESSAGE_KEY = 13;
+
 /**
  * _init - Init methods
  *
  */
 ContactUsForm.init = function _init(){
+
+	firebaseHelper.init().then(function(){
+		console.log('client registered in the server');
+	}).catch(function(error){
+		console.log('Error trying to connect to server', error);
+		//TODO HANDLE ERROR WHEN THERE IS NOR CONNECTION TO FIREBASE THE FIRST TIME
+	});
+
 	window.addEventListener('scroll', function(){
 		if ( ContactUsForm.checkFormFocus() && !ContactUsForm.FOCUSED ) {
 			ContactUsForm.FOCUSED = true;
@@ -128,8 +140,7 @@ ContactUsForm.saveContatForm = function _saveContatForm( e ){
 		//SAVE USER INFORMATION
 		ContactUsForm.saveUserInformation(user);
 
-		//TODO SAVE MESSAGE ON FIREBASE
-
+		//BUILD CHAT COMPONENT
 		ContactUsForm.buildChatComponent(message);
 
 		// ASK FOR PERMISSION TO WEB NOTIFICATION
@@ -152,12 +163,13 @@ ContactUsForm.focusLastMessageChat = function _focusLastMessageChat(msgContainer
 	}
 }
 
-
-/**
- * _buildChatComponent - Build chat component
- *
- */
-ContactUsForm.buildChatComponent = function _buildChatComponent(message){
+ /**
+  * _buildChatComponent - Build chat component
+  *
+  * @param  {type} message Message description
+  * @param  {type} user    User object
+  */
+ContactUsForm.buildChatComponent = function _buildChatComponent(message, user){
 	// <div class="chat">
 	// <div class="chat-history">
 	// <ul class="chat-ul">
@@ -189,8 +201,10 @@ ContactUsForm.buildChatComponent = function _buildChatComponent(message){
 	//FOCUS
 	messageZone.focus();
 
-	ContactUsForm.buildClientMessage(message);
-		//UGG JQUERY
+	//SEND CLIENT MESSAGE
+	ContactUsForm.sendClientMessage(message);
+
+	//UGG JQUERY
 	$( "#chat-container" ).fadeIn( "slow" );
 }
 
@@ -251,6 +265,22 @@ ContactUsForm.buildServerMessage = function _buildServerMessage(message){
 	ContactUsForm.sendBrowserNotification(message);
 }
 
+ /**
+  * _sendClientMessage - Send the client message to firebase server
+  *
+  * @param  {type} message Message description
+  * @param  {type} user    User object (OPTIONAL)
+  * @return {type}         Firebase Promise
+  */
+ContactUsForm.sendClientMessage = function _sendClientMessage(message){
+	//TODO ADD DISABLED OPTIONS OR EFFECT ON MEESAGE IN ON THE WAY TO THE SERVER
+	firebaseHelper.sendClientMessage(message).then(function(){
+		ContactUsForm.buildClientMessage(message);
+	}).catch(function(error){
+		//TODO HANDLE ERROR ON FIREBASE CONNECTION
+	})
+}
+
 
 /**
  * _buildClientMessage - Build DOM elements from client's message
@@ -307,6 +337,9 @@ ContactUsForm.buildClientMessage = function _buildClientMessage(message){
 
 	//UGG JQUERY
 	$(messageContainer).fadeIn( "slow" );
+
+	//LAST CLIENT MESSAGE
+	ContactUsForm.LAST_CLIENT_MESSAGE = messageContainer;
 
 	//FOCUS LAST MESSAGE
 	ContactUsForm.focusLastMessageChat();
@@ -371,11 +404,11 @@ ContactUsForm.buildMessageZone = function _buildMessageZone(){
 
 	message.addEventListener('keypress', function(event){
 		var key = event.keyCode;
-		if (key === 13) {
+		if (key === ContactUsForm.SEND_MESSAGE_KEY){
 			event.preventDefault();
 			var message = event.target.value;
 			event.target.value = "";
-			ContactUsForm.buildClientMessage(message);
+			ContactUsForm.sendClientMessage(message);
 		}
 	});
 	return message;
@@ -390,6 +423,12 @@ ContactUsForm.buildMessageZone = function _buildMessageZone(){
 ContactUsForm.saveUserInformation = function _saveUserInformation(user) {
 	if ( user ){
 		ContactUsForm.USER = user;
+		//SAVE CLIENT INFO ON DATABASE
+		firebaseHelper.saveClientInfo(user).then(function(){
+			console.log('User updated with info');
+		}).catch(function(error){
+			console.log('Error trying to save User\'s info', error);
+		})
 	}
 }
 
