@@ -34,15 +34,20 @@ firebaseHelper.init = function _init(){
 			localStorage.setItem(firebaseHelper.REBEL_STACK_CLIENT_KEY_NAME, firebaseHelper.REBEL_KEY);
 			console.log('SAVE REBEL KEY IN LOCALSTORAGE',	firebaseHelper.REBEL_KEY);
 		}
+		var newClient = {
+			messages: {},
+			visitDate : firebase.database.ServerValue.TIMESTAMP
+		};
+
+		var updates = {};
+		updates['/clients/' + firebaseHelper.REBEL_KEY] = newClient;
+		return firebase.database().ref().update(updates);
+	} else {
+		//THERE IS A KEY IN THE LOCAL STORAGE
+		return new Promise(function(resolve, reject){
+			resolve();
+		});
 	}
-
-	var newClient = {
-		messages: {}
-	};
-
-	var updates = {};
-	updates['/clients/' + firebaseHelper.REBEL_KEY] = newClient;
-	return firebase.database().ref().update(updates);
 }
 
 
@@ -66,7 +71,7 @@ firebaseHelper.saveClientInfo = function _saveClientInfo(user){
  * @return {Promise}         FirebasePromise
  */
 firebaseHelper.sendClientMessage = function _sendClientMessage(message){
-	var path = '/clients/' + firebaseHelper.REBEL_KEY + '/messages';
+	var path = '/clients/' + firebaseHelper.REBEL_KEY + '/messages/';
 	var updates = {};
 
 	var newMessage = {
@@ -79,4 +84,14 @@ firebaseHelper.sendClientMessage = function _sendClientMessage(message){
 	var path = path + newMessageKey;
 
 	return firebase.database().ref().child(path).set(newMessage);
+}
+
+ /**
+  * _getMessages - Get the last messages on the current conversation
+  *
+  * @param  {function} next Callback
+  */
+firebaseHelper.getMessages = function _getMessages( next ){
+	var path = '/clients/' + firebaseHelper.REBEL_KEY  + '/messages/';
+	return firebase.database().ref(path).orderByChild('createdAt').once('value');
 }

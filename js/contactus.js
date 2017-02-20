@@ -22,24 +22,28 @@ ContactUsForm.SEND_MESSAGE_KEY = 13;
  */
 ContactUsForm.init = function _init(){
 
-	firebaseHelper.init().then(function(){
+	firebaseHelper.init().then(function() {
 		console.log('client registered in the server');
+		window.addEventListener('scroll', function(){
+			if ( ContactUsForm.checkFormFocus() && !ContactUsForm.FOCUSED ) {
+				ContactUsForm.FOCUSED = true;
+				ContactUsForm.getHistory().then(function(data){
+					if ( data ){
+						//TODO CREATE PREVIOUS MESSAGES
+						console.log('========>', data.val());
+					} else {
+						setTimeout(function(){
+							ContactUsForm.buildContactForm();
+						}, 2000);
+					}
+				}).catch(function(error){
+					//TODO HANDLE ERROR WHEN THERE IS NOR CONNECTION TO FIREBASE
+				})
+			}
+		});
 	}).catch(function(error){
 		console.log('Error trying to connect to server', error);
 		//TODO HANDLE ERROR WHEN THERE IS NOR CONNECTION TO FIREBASE THE FIRST TIME
-	});
-
-	window.addEventListener('scroll', function(){
-		if ( ContactUsForm.checkFormFocus() && !ContactUsForm.FOCUSED ) {
-			ContactUsForm.FOCUSED = true;
-			if ( ContactUsForm.getHistory() ) {
-				//TODO BUILD CHAT COMPONENT
-			} else {
-				setTimeout(function(){
-					ContactUsForm.buildContactForm();
-				}, 2000);
-			}
-		}
 	});
 }
 
@@ -454,8 +458,9 @@ ContactUsForm.buildDateMessageFormat = function _buildDateMessageFormat(){
  * _getHistory - Get the previous conversations with the client base on client's token
  *
  */
-ContactUsForm.getHistory = function _getHistory() {
-	return false;
+ContactUsForm.getHistory = function _getHistory( next ) {
+	console.log('getting the last messages');
+	return firebaseHelper.getMessages( next );
 }
 
 /**
