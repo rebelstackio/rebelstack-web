@@ -1783,6 +1783,8 @@ body.internal .blog {
 .chat .chat-history {
   padding: 30px 30px 20px;
   border-bottom: 2px solid white;
+  max-height: 300px;
+  overflow-y: auto;
 }
 .chat .chat-history .message-data {
   margin-bottom: 15px;
@@ -1803,7 +1805,7 @@ body.internal .blog {
   margin-top: 30px;
 }
 .chat .chat-history .message:after {
-content: "";
+    content: "";
     position: absolute;
     top: -15px;
     left: 20px;
@@ -1871,4 +1873,50 @@ content: "";
 .message-zone{
   margin-top: 10px;
   resize: none;
+}
+
+/* PULSE */
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  50% {
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+
+  100% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  50% {
+    -webkit-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+
+  100% {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+}
+
+.faa-pulse.animated,
+.faa-pulse.animated-hover:hover,
+.faa-parent.animated-hover:hover > .faa-pulse {
+  -webkit-animation: pulse 2s linear infinite;
+  animation: pulse 2s linear infinite;
 }

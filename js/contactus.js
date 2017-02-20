@@ -141,6 +141,19 @@ ContactUsForm.saveContatForm = function _saveContatForm( e ){
 
 
 /**
+ * _focusLastMessageChat - Focus the last message on the chat component
+ *
+ * @return {type}  description
+ */
+ContactUsForm.focusLastMessageChat = function _focusLastMessageChat(msgContainer){
+	var chatHistory = document.getElementById('chat-history');
+	if ( chatHistory ){
+		chatHistory.scrollTop = chatHistory.scrollHeight;
+	}
+}
+
+
+/**
  * _buildChatComponent - Build chat component
  *
  */
@@ -157,6 +170,7 @@ ContactUsForm.buildChatComponent = function _buildChatComponent(message){
 
 	var chatHistoryDiv = document.createElement('div');
 	chatHistoryDiv.setAttribute('class', 'chat-history');
+	chatHistoryDiv.setAttribute('id', 'chat-history');
 
 	var messageZone = ContactUsForm.buildMessageZone();
 
@@ -171,12 +185,16 @@ ContactUsForm.buildChatComponent = function _buildChatComponent(message){
 	form.innerHTML = "";
 	chatDiv.setAttribute('style', 'display:none;');
 	form.appendChild(chatDiv);
+
+	//FOCUS
+	messageZone.focus();
+
 	ContactUsForm.buildClientMessage(message);
 		//UGG JQUERY
 	$( "#chat-container" ).fadeIn( "slow" );
 }
 
-ContactUsForm.buildServerMessage = function _buildClientMessage(message){
+ContactUsForm.buildServerMessage = function _buildServerMessage(message){
 	var message = 'default chat message';
 	// <li class="clearfix">
 	// 	<div class="message-data align-right">
@@ -195,7 +213,7 @@ ContactUsForm.buildServerMessage = function _buildClientMessage(message){
 	messageDataTextContainer.setAttribute('class', 'message-data-name');
 
 	var icon = document.createElement('i');
-	icon.setAttribute('class', 'fa fa-circle me');
+	icon.setAttribute('class', 'fa fa-envelope me faa-pulse animated');
 
 	var strongText = document.createElement('strong');
 	var messageDataText = document.createTextNode(' RebelStack Team - ');
@@ -226,6 +244,10 @@ ContactUsForm.buildServerMessage = function _buildClientMessage(message){
 	//UGG JQUERY
 	$(messageContainer).fadeIn( "slow" );
 
+	//FOCUS LAST MESSAGE
+	ContactUsForm.focusLastMessageChat();
+
+	//NOTIFICATION
 	ContactUsForm.sendBrowserNotification(message);
 }
 
@@ -286,6 +308,8 @@ ContactUsForm.buildClientMessage = function _buildClientMessage(message){
 	//UGG JQUERY
 	$(messageContainer).fadeIn( "slow" );
 
+	//FOCUS LAST MESSAGE
+	ContactUsForm.focusLastMessageChat();
 }
 
  /**
@@ -294,26 +318,30 @@ ContactUsForm.buildClientMessage = function _buildClientMessage(message){
   * @param  {type} message Custom message
   */
 ContactUsForm.sendBrowserNotification = function _sendBrowserNotification(message){
-	if ( window.Notification ) {
-		if ( window.Notification.permission == "granted" ) {
-			if ( message.length > ContactUsForm.TRUNCATED_LENGTH ){
-				message = message.substr(0,ContactUsForm.TRUNCATED_LENGTH) + '...';
-			}
-
-			var notification = new Notification(
-				'New Message from RebelStack\'s Team',
-				{
-					icon: '../images/logo-notification.png',
-					body: message
+	if ( !ContactUsForm.checkFormFocus() ) {
+		if ( window.Notification ) {
+			if ( window.Notification.permission == "granted" ) {
+				if ( message.length > ContactUsForm.TRUNCATED_LENGTH ){
+					message = message.substr(0,ContactUsForm.TRUNCATED_LENGTH) + '...';
 				}
-			);
 
-			notification.onclick = function () {
-				location.href = "#message-zone";
-			};
+				var notification = new Notification(
+					'New Message from RebelStack\'s Team',
+					{
+						icon: '../images/logo-notification.png',
+						body: message,
+						vibrate: [200, 100, 200],
+						sound: '../sounds/new_message.mp3'
+					}
+				);
+
+				notification.onclick = function () {
+					location.href = "#message-zone";
+				};
+			}
+		} else {
+			console.log("Notifications are not supported for this Browser/OS version yet.");
 		}
-	} else {
-		console.log("Notifications are not supported for this Browser/OS version yet.");
 	}
 }
 
@@ -331,6 +359,16 @@ ContactUsForm.buildMessageZone = function _buildMessageZone(){
 	message.setAttribute('placeholder', 'Message');
 	message.setAttribute('rows', '2');
 	message.setAttribute('required', 'required');
+	message.addEventListener('focus', function(event){
+		var newMessages = document.getElementsByClassName('fa-envelope');
+		var newMessagesLengh = newMessages.length;
+		var index = 0;
+		while (index < newMessagesLengh) {
+			newMessages[0].className = "fa fa-circle me";
+			index++;
+		}
+	});
+
 	message.addEventListener('keypress', function(event){
 		var key = event.keyCode;
 		if (key === 13) {
