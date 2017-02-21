@@ -14,6 +14,8 @@ firebaseHelper.REBEL_KEY = null;
 
 firebaseHelper.CLIENT_SOURCE = 'CLIENT';
 
+firebaseHelper.HISTORY_MESSAGE_QTY = 10;
+
 /**
  * _init - Init firebase configuration and set up the client credentials locally
  *
@@ -71,7 +73,7 @@ firebaseHelper.saveClientInfo = function _saveClientInfo(user){
  * @return {Promise}         FirebasePromise
  */
 firebaseHelper.sendClientMessage = function _sendClientMessage(message){
-	var path = '/clients/' + firebaseHelper.REBEL_KEY + '/messages/';
+	var path = '/messages/' + firebaseHelper.REBEL_KEY + '/';
 	var updates = {};
 
 	var newMessage = {
@@ -81,9 +83,9 @@ firebaseHelper.sendClientMessage = function _sendClientMessage(message){
 		source: firebaseHelper.CLIENT_SOURCE
 	};
 	var newMessageKey = firebase.database().ref().child(path).push().key;
-	var path = path + newMessageKey;
-
-	return firebase.database().ref().child(path).set(newMessage);
+	path += newMessageKey;
+	updates[path] = newMessage;
+	return firebase.database().ref().update(updates);
 }
 
  /**
@@ -92,6 +94,6 @@ firebaseHelper.sendClientMessage = function _sendClientMessage(message){
   * @param  {function} next Callback
   */
 firebaseHelper.getMessages = function _getMessages( next ){
-	var path = '/clients/' + firebaseHelper.REBEL_KEY  + '/messages/';
-	return firebase.database().ref(path).orderByChild('createdAt').once('value');
+	var path = '/messages/' + firebaseHelper.REBEL_KEY  +'/';
+	return firebase.database().ref(path).orderByChild('createdAt').limitToFirst(firebaseHelper.HISTORY_MESSAGE_QTY).once('value');
 }

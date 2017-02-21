@@ -27,10 +27,13 @@ ContactUsForm.init = function _init(){
 		window.addEventListener('scroll', function(){
 			if ( ContactUsForm.checkFormFocus() && !ContactUsForm.FOCUSED ) {
 				ContactUsForm.FOCUSED = true;
+				// setTimeout(function(){
+				// 	ContactUsForm.buildContactForm();
+				// }, 2000);
 				ContactUsForm.getHistory().then(function(data){
 					if ( data ){
 						//TODO CREATE PREVIOUS MESSAGES
-						console.log('========>', data.val());
+						ContactUsForm.buildPreviousConversation(data.val());
 					} else {
 						setTimeout(function(){
 							ContactUsForm.buildContactForm();
@@ -45,6 +48,43 @@ ContactUsForm.init = function _init(){
 		console.log('Error trying to connect to server', error);
 		//TODO HANDLE ERROR WHEN THERE IS NOR CONNECTION TO FIREBASE THE FIRST TIME
 	});
+}
+
+
+/**
+ * _buildPreviousConversation - Build previous conversation
+ *
+ * @param  {Object} messages List of previous messages
+ */
+ContactUsForm.buildPreviousConversation = function _buildPreviousConversation(messages){
+	//BUILD CHAT COMPONENt
+	ContactUsForm.buildChatComponent();
+
+	var keys = Object.keys(messages);
+	var keyLength = keys.length;
+
+	for (var i = 0; i < keyLength; i++) {
+		var message = messages[keys[i]];
+		switch (message['source']) {
+			case 'CLIENT':
+				ContactUsForm.buildClientMessage(
+					message['message'],
+					message['createdAt'],
+					message['read']
+				);
+				break;
+			case 'SERVER':
+				ContactUsForm.buildServerMessage(
+					message['message'],
+					message['createdAt'],
+					message['read']
+				);
+				break;
+			default:
+				console.log('Invalid message\'s source ', message);
+				break;
+		}
+	}
 }
 
 
@@ -171,9 +211,8 @@ ContactUsForm.focusLastMessageChat = function _focusLastMessageChat(msgContainer
   * _buildChatComponent - Build chat component
   *
   * @param  {type} message Message description
-  * @param  {type} user    User object
   */
-ContactUsForm.buildChatComponent = function _buildChatComponent(message, user){
+ContactUsForm.buildChatComponent = function _buildChatComponent(message){
 	// <div class="chat">
 	// <div class="chat-history">
 	// <ul class="chat-ul">
@@ -183,6 +222,7 @@ ContactUsForm.buildChatComponent = function _buildChatComponent(message, user){
 	var chatDiv = document.createElement('div');
 	chatDiv.setAttribute('class', 'chat');
 	chatDiv.setAttribute('id', 'chat-container');
+	chatDiv.setAttribute('style', 'display:none;');
 
 	var chatHistoryDiv = document.createElement('div');
 	chatHistoryDiv.setAttribute('class', 'chat-history');
@@ -199,20 +239,31 @@ ContactUsForm.buildChatComponent = function _buildChatComponent(message, user){
 	chatDiv.appendChild(messageZone);
 
 	form.innerHTML = "";
-	chatDiv.setAttribute('style', 'display:none;');
+
 	form.appendChild(chatDiv);
 
 	//FOCUS
 	messageZone.focus();
 
 	//SEND CLIENT MESSAGE
-	ContactUsForm.sendClientMessage(message);
+	if ( message ){
+		ContactUsForm.sendClientMessage(message);
+	}
 
 	//UGG JQUERY
 	$( "#chat-container" ).fadeIn( "slow" );
+
 }
 
-ContactUsForm.buildServerMessage = function _buildServerMessage(message){
+
+/**
+ * _buildServerMessage - Build DOM elements from server's message
+ *
+ * @param  {string} 		message   Message descrition
+ * @param  {timestamp} 	createdAt Message createdAt date
+ * @param  {boolean} 		read      Meesage read by the rebel team
+ */
+ContactUsForm.buildServerMessage = function _buildServerMessage(message, createdAt, read){
 	var message = 'default chat message';
 	// <li class="clearfix">
 	// 	<div class="message-data align-right">
@@ -286,10 +337,14 @@ ContactUsForm.sendClientMessage = function _sendClientMessage(message){
 }
 
 
-/**
- * _buildClientMessage - Build DOM elements from client's message
- */
-ContactUsForm.buildClientMessage = function _buildClientMessage(message){
+ /**
+  * _buildClientMessage - Build DOM elements from client's message
+  *
+  * @param  {string} 		message   Message descrition
+  * @param  {timestamp} createdAt Message createdAt date
+  * @param  {boolean} 	read      Meesage read by the rebel team
+  */
+ContactUsForm.buildClientMessage = function _buildClientMessage(message, createdAt, read){
 	// <li>
 	// 	<div class="message-data">
 	// 		<span class="message-data-name"><i class="fa fa-circle you"></i> You</span>
@@ -313,7 +368,7 @@ ContactUsForm.buildClientMessage = function _buildClientMessage(message){
 	var messageDataText = document.createTextNode(' You - ');
 	strongText.appendChild(messageDataText);
 
-	var time = ContactUsForm.buildDateMessageFormat();
+	var time = ContactUsForm.buildDateMessageFormat(createdAt);
 
 	var messageTextContainer = document.createElement('div');
 	messageTextContainer.setAttribute('class', 'message you-message');
@@ -331,9 +386,6 @@ ContactUsForm.buildClientMessage = function _buildClientMessage(message){
 	messageDataContainer.appendChild(messageTextContainer);
 
 	messageContainer.appendChild(messageDataContainer);
-
-	//FLAG
-	//ContactUsForm.LAST_MESSAGE_FROM_CLIENT = true
 
 	//ADD TO DOM
 	var chatList = document.getElementById('chat-list');
@@ -436,14 +488,20 @@ ContactUsForm.saveUserInformation = function _saveUserInformation(user) {
 	}
 }
 
+ /**
+  * _buildDateMessageFormat - Build the date componenet next to the message label
+  *
+  * @param  {type} createdAt Message Created Date
+  * @return {DOM} 					 Date component
+  */
+ContactUsForm.buildDateMessageFormat = function _buildDateMessageFormat(createdAt){
+	var date;
+	if ( createdAt ){
+		date = new Date(createdAt);
+	} else {
+		date = new Date();
+	}
 
-/**
- * _buildDateMessageFormat - Build the date componenet next to the message label
- *
- * @return {DOM}  Date component
- */
-ContactUsForm.buildDateMessageFormat = function _buildDateMessageFormat(){
-	var date = new Date();
 	var options = {
 	 	year: "numeric", month: "short",
 		day: "numeric"
