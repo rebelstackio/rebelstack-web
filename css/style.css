@@ -1955,3 +1955,21 @@ body.internal .blog {
 .postgresql:hover,.postgresql.active{
     background-image: url("../images/logos/postgresql_over.png");
 }
+
+@media (max-width: 600px) {
+     .home .hero-txt .hero-title {
+         font-size: 30px;
+     }
+     .home .hero-txt .hero-work {
+         font-size: 14px;
+     }
+     .about-center{
+         font-size: 14px!important;
+     }
+     .footer-technology{
+         display: none;
+     }
+     .navbar-collapse{
+         background-color: rgba(0,0,0,0.7);
+     }
+ }
