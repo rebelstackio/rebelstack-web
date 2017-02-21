@@ -27,14 +27,11 @@ ContactUsForm.init = function _init(){
 		window.addEventListener('scroll', function(){
 			if ( ContactUsForm.checkFormFocus() && !ContactUsForm.FOCUSED ) {
 				ContactUsForm.FOCUSED = true;
-				// setTimeout(function(){
-				// 	ContactUsForm.buildContactForm();
-				// }, 2000);
 				ContactUsForm.getHistory().then(function(data){
 					if ( data ){
-						//TODO CREATE PREVIOUS MESSAGES
 						ContactUsForm.buildPreviousConversation(data.val());
 					} else {
+						//TODO REMOVE SETTIMEOUT - JUST FOR TESTING
 						setTimeout(function(){
 							ContactUsForm.buildContactForm();
 						}, 2000);
@@ -328,12 +325,27 @@ ContactUsForm.buildServerMessage = function _buildServerMessage(message, created
   * @return {type}         Firebase Promise
   */
 ContactUsForm.sendClientMessage = function _sendClientMessage(message){
-	//TODO ADD DISABLED OPTIONS OR EFFECT ON MEESAGE IN ON THE WAY TO THE SERVER
-	firebaseHelper.sendClientMessage(message).then(function(){
-		ContactUsForm.buildClientMessage(message);
-	}).catch(function(error){
-		//TODO HANDLE ERROR ON FIREBASE CONNECTION
-	})
+	var lastMessage = ContactUsForm.buildClientMessage(message, null, null, true);
+	//TODO REMOVE SETTIMEOUT - JUST FOR TESTING
+	setTimeout(function(){
+		firebaseHelper.sendClientMessage(message).then(function(){
+			console.log('Message  has been sent to the server ');
+			//CHANGE MESSAGE ICON TO SENT
+			var icon = lastMessage.getElementsByClassName('fa-paper-plane')[0];
+			icon.setAttribute('class', 'fa fa-circle you');
+			icon.setAttribute('title', 'Message sent');
+		}).catch(function(error){
+			console.log('There is an error sending the meesage', error);
+			//CHANGE MESSAGE ICON TO ERROR AND CHANGE CONTAINER'S  BG COLOR
+			var messageContainer = lastMessage.getElementsByClassName('you-message')[0];
+			messageContainer.setAttribute('class', 'message you-message-error');
+			var iconContainer = lastMessage.getElementsByClassName('message-data-name')[0];
+			var icon = iconContainer.getElementsByClassName('fa-paper-plane')[0];
+			icon.setAttribute('class', 'fa fa-times you-error');
+			icon.setAttribute('aria-hidden', 'true');
+			icon.setAttribute('title', 'The message hasn\'t been sent');
+		})
+	}, 2000);
 }
 
 
@@ -343,8 +355,9 @@ ContactUsForm.sendClientMessage = function _sendClientMessage(message){
   * @param  {string} 		message   Message descrition
   * @param  {timestamp} createdAt Message createdAt date
   * @param  {boolean} 	read      Meesage read by the rebel team
+  * @param  {boolean} 	sending   Meesage is sending to the server
   */
-ContactUsForm.buildClientMessage = function _buildClientMessage(message, createdAt, read){
+ContactUsForm.buildClientMessage = function _buildClientMessage(message, createdAt, read, sending){
 	// <li>
 	// 	<div class="message-data">
 	// 		<span class="message-data-name"><i class="fa fa-circle you"></i> You</span>
@@ -362,7 +375,16 @@ ContactUsForm.buildClientMessage = function _buildClientMessage(message, created
 	messageDataTextContainer.setAttribute('class', 'message-data-name');
 
 	var icon = document.createElement('i');
-	icon.setAttribute('class', 'fa fa-circle you');
+
+	//SENDING MESSAGE
+	if ( sending ){
+		icon.setAttribute('class', 'fa fa-paper-plane you faa-pulse animated');
+		icon.setAttribute('aria-hidden', 'true');
+		icon.setAttribute('title', 'Sending message');
+	} else {
+		icon.setAttribute('class', 'fa fa-circle you');
+		icon.setAttribute('title', 'Message sent');
+	}
 
 	var strongText = document.createElement('strong');
 	var messageDataText = document.createTextNode(' You - ');
@@ -399,6 +421,8 @@ ContactUsForm.buildClientMessage = function _buildClientMessage(message, created
 
 	//FOCUS LAST MESSAGE
 	ContactUsForm.focusLastMessageChat();
+
+	return messageContainer;
 }
 
  /**
@@ -448,6 +472,7 @@ ContactUsForm.buildMessageZone = function _buildMessageZone(){
 	message.setAttribute('placeholder', 'Message');
 	message.setAttribute('rows', '2');
 	message.setAttribute('required', 'required');
+
 	message.addEventListener('focus', function(event){
 		var newMessages = document.getElementsByClassName('fa-envelope');
 		var newMessagesLengh = newMessages.length;
@@ -474,7 +499,6 @@ ContactUsForm.buildMessageZone = function _buildMessageZone(){
 /**
  * _saveUserInformation - Save the user information in memry(also it could be in localstorage)
  *
- * @return {type}  description
  */
 ContactUsForm.saveUserInformation = function _saveUserInformation(user) {
 	if ( user ){
@@ -483,7 +507,7 @@ ContactUsForm.saveUserInformation = function _saveUserInformation(user) {
 		firebaseHelper.saveClientInfo(user).then(function(){
 			console.log('User updated with info');
 		}).catch(function(error){
-			console.log('Error trying to save User\'s info', error);
+			console.error('Error trying to save User\'s info', error);
 		})
 	}
 }
@@ -514,11 +538,12 @@ ContactUsForm.buildDateMessageFormat = function _buildDateMessageFormat(createdA
 
 /**
  * _getHistory - Get the previous conversations with the client base on client's token
+ * @return {Promise} Firebase Promise
  *
  */
-ContactUsForm.getHistory = function _getHistory( next ) {
+ContactUsForm.getHistory = function _getHistory( ) {
 	console.log('getting the last messages');
-	return firebaseHelper.getMessages( next );
+	return firebaseHelper.getMessages( );
 }
 
 /**

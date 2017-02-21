@@ -45,7 +45,7 @@ firebaseHelper.init = function _init(){
 		updates['/clients/' + firebaseHelper.REBEL_KEY] = newClient;
 		return firebase.database().ref().update(updates);
 	} else {
-		//THERE IS A KEY IN THE LOCAL STORAGE
+		//THERE IS A KEY IN THE LOCAL STORAGE, SEND BLANK PROMISE
 		return new Promise(function(resolve, reject){
 			resolve();
 		});
@@ -95,5 +95,5 @@ firebaseHelper.sendClientMessage = function _sendClientMessage(message){
   */
 firebaseHelper.getMessages = function _getMessages( next ){
 	var path = '/messages/' + firebaseHelper.REBEL_KEY  +'/';
-	return firebase.database().ref(path).orderByChild('createdAt').limitToFirst(firebaseHelper.HISTORY_MESSAGE_QTY).once('value');
+	return firebase.database().ref(path).orderByChild('createdAt').limitToLast(firebaseHelper.HISTORY_MESSAGE_QTY).once('value');
 }
