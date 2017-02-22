@@ -921,7 +921,7 @@ h6 {
   display: block;
   font-family: "Oswald";
   font-size: 25px;
-  line-height: 45px;
+  line-height: 30px;
   letter-spacing: 1px;
   font-weight: 400;
   color: white;
@@ -998,7 +998,7 @@ ul.styled-list.list-star li:before {
 }
 .portfolio {
   padding: 100px 0 0;
-  background: var(--google-yellow-700);
+  background: var(--bg-portfolio-color);
 }
 .filter {
   text-align: center;
@@ -1146,7 +1146,7 @@ ul.styled-list.list-star li:before {
 }
 .testimonials {
   padding: 100px 0;
-  background-color:var(--primary-background-color);
+  background-color:var(--bg-testimonials-color);
   background-size: cover;
   background-attachment: fixed;
   color: #fff;
@@ -1824,7 +1824,7 @@ body.internal .blog {
 }
 
 .service{
-     background-color:#213e55;
+     background-color:var(--bg-services-color);
 }
 
 
@@ -2191,4 +2191,18 @@ body.internal .blog {
 .faa-parent.animated-hover:hover > .faa-pulse {
   -webkit-animation: pulse 2s linear infinite;
   animation: pulse 2s linear infinite;
+}
+
+.st-feature-img{
+    height: 235px;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    text-align: center;
+}
+.st-feature-img img{
+    margin:auto;
+}
+.st-feature-title small{
+    font-size:16px;
 }
