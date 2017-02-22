@@ -4,7 +4,7 @@
  */
 var ContactUsForm = {	};
 
-ContactUsForm.CONTACTFORM_POSITION = 3750;
+ContactUsForm.CONTACTFORM_POSITION = 3000;
 
 ContactUsForm.FOCUSED = false;
 
