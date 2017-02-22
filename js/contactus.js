@@ -28,7 +28,7 @@ ContactUsForm.init = function _init(){
 			if ( ContactUsForm.checkFormFocus() && !ContactUsForm.FOCUSED ) {
 				ContactUsForm.FOCUSED = true;
 				ContactUsForm.getHistory().then(function(data){
-					if ( data ){
+					if ( data.val() ){
 						ContactUsForm.buildPreviousConversation(data.val());
 					} else {
 						//TODO REMOVE SETTIMEOUT - JUST FOR TESTING
@@ -67,14 +67,18 @@ ContactUsForm.buildPreviousConversation = function _buildPreviousConversation(me
 				ContactUsForm.buildClientMessage(
 					message['message'],
 					message['createdAt'],
-					message['read']
+					message['read'],
+					false,
+					keys[i]
 				);
 				break;
 			case 'SERVER':
 				ContactUsForm.buildServerMessage(
 					message['message'],
 					message['createdAt'],
-					message['read']
+					message['read'],
+					false,
+					keys[i]
 				);
 				break;
 			default:
@@ -259,9 +263,11 @@ ContactUsForm.buildChatComponent = function _buildChatComponent(message){
  * @param  {string} 		message   Message descrition
  * @param  {timestamp} 	createdAt Message createdAt date
  * @param  {boolean} 		read      Meesage read by the rebel team
+ * @param  {boolean} 		sending   Meesage is sending
+ * @param  {string} 		id      	Meesage ID
  */
-ContactUsForm.buildServerMessage = function _buildServerMessage(message, createdAt, read){
-	var message = 'default chat message';
+ContactUsForm.buildServerMessage = function _buildServerMessage(message, createdAt, read, sending, id){
+	// var message = 'default chat message';
 	// <li class="clearfix">
 	// 	<div class="message-data align-right">
 	// 		<span class="message-data-name">RebelStack </span> <i class="fa fa-circle me"></i>
@@ -269,52 +275,63 @@ ContactUsForm.buildServerMessage = function _buildServerMessage(message, created
 	// 	<div class="message me-message float-right"> We should take a look at your onboarding and service delivery workflows, for most businesess there are many ways to save time and not compromise quality.	</div>
 	// </li>
 
-	var messageContainer = document.createElement('li');
-	messageContainer.setAttribute('style', 'display:none;');
-	messageContainer.setAttribute('class', 'clearfix');
-	var messageDataContainer = document.createElement('div');
-	messageDataContainer.setAttribute('class', 'message-data align-right');
+	var messageExists = document.getElementById('message-container-' + id);
 
-	var messageDataTextContainer = document.createElement('span');
-	messageDataTextContainer.setAttribute('class', 'message-data-name');
+	if ( !messageExists ){
+		var messageContainer = document.createElement('li');
+		if ( id ){
+			messageContainer.setAttribute('id', 'message-container-' + id);
+		}
+		messageContainer.setAttribute('style', 'display:none;');
+		messageContainer.setAttribute('class', 'clearfix');
+		var messageDataContainer = document.createElement('div');
+		messageDataContainer.setAttribute('class', 'message-data align-right');
 
-	var icon = document.createElement('i');
-	icon.setAttribute('class', 'fa fa-envelope me faa-pulse animated');
+		var messageDataTextContainer = document.createElement('span');
+		messageDataTextContainer.setAttribute('class', 'message-data-name');
 
-	var strongText = document.createElement('strong');
-	var messageDataText = document.createTextNode(' RebelStack Team - ');
-	strongText.appendChild(messageDataText);
+		var icon = document.createElement('i');
+		icon.setAttribute('class', 'fa fa-envelope me faa-pulse animated');
 
-	var time = ContactUsForm.buildDateMessageFormat();
+		var strongText = document.createElement('strong');
+		var messageDataText = document.createTextNode(' RebelStack Team - ');
+		strongText.appendChild(messageDataText);
 
-	var messageTextContainer = document.createElement('div');
-	messageTextContainer.setAttribute('class', 'message me-message float-right');
+		var time = ContactUsForm.buildDateMessageFormat();
 
-	var _message = document.createTextNode(message);
+		var messageTextContainer = document.createElement('div');
+		messageTextContainer.setAttribute('class', 'message me-message float-right');
 
-	messageDataTextContainer.appendChild(icon);
-	messageDataTextContainer.appendChild(strongText);
-	messageDataTextContainer.appendChild(time);
+		var _message = document.createTextNode(message);
 
-	messageTextContainer.appendChild(_message);
+		messageDataTextContainer.appendChild(icon);
+		messageDataTextContainer.appendChild(strongText);
+		messageDataTextContainer.appendChild(time);
 
-	messageDataContainer.appendChild(messageDataTextContainer);
-	messageDataContainer.appendChild(messageTextContainer);
+		messageTextContainer.appendChild(_message);
 
-	messageContainer.appendChild(messageDataContainer);
+		messageDataContainer.appendChild(messageDataTextContainer);
+		messageDataContainer.appendChild(messageTextContainer);
 
-	//ADD TO DOM
-	var chatList = document.getElementById('chat-list');
-	chatList.appendChild(messageContainer);
+		messageContainer.appendChild(messageDataContainer);
 
-	//UGG JQUERY
-	$(messageContainer).fadeIn( "slow" );
+		//ADD TO DOM
+		var chatList = document.getElementById('chat-list');
 
-	//FOCUS LAST MESSAGE
-	ContactUsForm.focusLastMessageChat();
+		//CHECK IF THE CONTAINER IS READY
+		if ( chatList ){
+			chatList.appendChild(messageContainer);
 
-	//NOTIFICATION
-	ContactUsForm.sendBrowserNotification(message);
+			//UGG JQUERY
+			$(messageContainer).fadeIn( "slow" );
+
+			//FOCUS LAST MESSAGE
+			ContactUsForm.focusLastMessageChat();
+
+			//NOTIFICATION
+			ContactUsForm.sendBrowserNotification(message);
+		}
+	}
 }
 
  /**
@@ -344,7 +361,7 @@ ContactUsForm.sendClientMessage = function _sendClientMessage(message){
 			icon.setAttribute('class', 'fa fa-times you-error');
 			icon.setAttribute('aria-hidden', 'true');
 			icon.setAttribute('title', 'The message hasn\'t been sent');
-		})
+		});
 	}, 2000);
 }
 
@@ -356,8 +373,9 @@ ContactUsForm.sendClientMessage = function _sendClientMessage(message){
   * @param  {timestamp} createdAt Message createdAt date
   * @param  {boolean} 	read      Meesage read by the rebel team
   * @param  {boolean} 	sending   Meesage is sending to the server
+  * @param  {string} 	  id   			Meesage ID
   */
-ContactUsForm.buildClientMessage = function _buildClientMessage(message, createdAt, read, sending){
+ContactUsForm.buildClientMessage = function _buildClientMessage(message, createdAt, read, sending, id){
 	// <li>
 	// 	<div class="message-data">
 	// 		<span class="message-data-name"><i class="fa fa-circle you"></i> You</span>
@@ -368,6 +386,9 @@ ContactUsForm.buildClientMessage = function _buildClientMessage(message, created
 	// </li>
 	var messageContainer = document.createElement('li');
 	messageContainer.setAttribute('style', 'display:none;');
+	if ( id ){
+		messageContainer.setAttribute('id', 'message-container-' + id);
+	}
 	var messageDataContainer = document.createElement('div');
 	messageDataContainer.setAttribute('class', 'message-data');
 
@@ -433,25 +454,26 @@ ContactUsForm.buildClientMessage = function _buildClientMessage(message, created
 ContactUsForm.sendBrowserNotification = function _sendBrowserNotification(message){
 	if ( !ContactUsForm.checkFormFocus() ) {
 		if ( window.Notification ) {
-			if ( window.Notification.permission == "granted" ) {
-				if ( message.length > ContactUsForm.TRUNCATED_LENGTH ){
-					message = message.substr(0,ContactUsForm.TRUNCATED_LENGTH) + '...';
-				}
-
-				var notification = new Notification(
-					'New Message from RebelStack\'s Team',
-					{
-						icon: '../images/logo-notification.png',
-						body: message,
-						vibrate: [200, 100, 200],
-						sound: '../sounds/new_message.mp3'
-					}
-				);
-
-				notification.onclick = function () {
-					location.href = "#message-zone";
-				};
+			if ( window.Notification.permission != "granted" ) {
+				window.Notification.requestPermission();
 			}
+			if ( message.length > ContactUsForm.TRUNCATED_LENGTH ){
+				message = message.substr(0,ContactUsForm.TRUNCATED_LENGTH) + '...';
+			}
+
+			var notification = new Notification(
+				'New Message from RebelStack\'s Team',
+				{
+					icon: '../images/logo-notification.png',
+					body: message,
+					vibrate: [200, 100, 200],
+					sound: '../sounds/new_message.mp3'
+				}
+			);
+
+			notification.onclick = function () {
+				location.href = "#message-zone";
+			};
 		} else {
 			console.log("Notifications are not supported for this Browser/OS version yet.");
 		}
@@ -556,6 +578,23 @@ ContactUsForm.checkFormFocus = function _checkFormFocus() {
 	return body.scrollTop >= ContactUsForm.CONTACTFORM_POSITION;
 }
 
+ContactUsForm.serverMessagesEvent = function _serverMessagesEvent(){
+	firebaseHelper.newServeMessage(function(data){
+		var message = data.val();
+		//GET ONLY THE SERVER MESSAGES
+		if ( message && message['source'] == 'SERVER' ){
+			ContactUsForm.buildServerMessage(
+				message['message'],
+				message['createdAt'],
+				message['read'],
+				false,
+				data.key
+			);
+		}
+	});
+}
+
 document.addEventListener("DOMContentLoaded", function(){
 	ContactUsForm.init();
+	ContactUsForm.serverMessagesEvent();
 });

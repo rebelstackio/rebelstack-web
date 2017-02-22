@@ -61,6 +61,7 @@ firebaseHelper.init = function _init(){
  */
 firebaseHelper.saveClientInfo = function _saveClientInfo(user){
 	user.visitDate = firebase.database.ServerValue.TIMESTAMP;
+	user.lastActivity = firebase.database.ServerValue.TIMESTAMP;
 	var userPath = '/clients/' + firebaseHelper.REBEL_KEY +'/' ;
 	return firebase.database().ref().child(userPath).set(user);
 }
@@ -75,6 +76,13 @@ firebaseHelper.saveClientInfo = function _saveClientInfo(user){
 firebaseHelper.sendClientMessage = function _sendClientMessage(message){
 	var path = '/messages/' + firebaseHelper.REBEL_KEY + '/';
 	var updates = {};
+
+	//TODO MAYBE I NEED TO MOVE THE USERS LASTACTIVITY UPDATE INSIDE THE PROMISE
+	var lastActivityPath = '/clients/' + firebaseHelper.REBEL_KEY;
+	var updateUser = {
+		'lastActivity': firebase.database.ServerValue.TIMESTAMP,
+	};
+	firebase.database().ref().child(lastActivityPath).update(updateUser);
 
 	var newMessage = {
 		createdAt: firebase.database.ServerValue.TIMESTAMP,
@@ -96,4 +104,18 @@ firebaseHelper.sendClientMessage = function _sendClientMessage(message){
 firebaseHelper.getMessages = function _getMessages( next ){
 	var path = '/messages/' + firebaseHelper.REBEL_KEY  +'/';
 	return firebase.database().ref(path).orderByChild('createdAt').limitToLast(firebaseHelper.HISTORY_MESSAGE_QTY).once('value');
+}
+
+
+/**
+ * _newServeMessage - new message from server
+ *
+ * @param  {function} next Callback
+ */
+firebaseHelper.newServeMessage = function _newServeMessage(next){
+	var path = '/messages/' + firebaseHelper.REBEL_KEY  +'/';
+	var messagesRef = firebase.database().ref(path).orderByChild('createdAt');
+	messagesRef.on('child_added', function(data) {
+		next(data);
+	});
 }
