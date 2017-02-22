@@ -30,6 +30,7 @@ ContactUsForm.init = function _init(){
 				ContactUsForm.getHistory().then(function(data){
 					if ( data.val() ){
 						ContactUsForm.buildPreviousConversation(data.val());
+						ContactUsForm.focusLastMessageChat();
 					} else {
 						//TODO REMOVE SETTIMEOUT - JUST FOR TESTING
 						setTimeout(function(){
@@ -51,7 +52,7 @@ ContactUsForm.init = function _init(){
 /**
  * _buildPreviousConversation - Build previous conversation
  *
- * @param  {Object} messages List of previous messages
+ * @param	{Object} messages List of previous messages
  */
 ContactUsForm.buildPreviousConversation = function _buildPreviousConversation(messages){
 	//BUILD CHAT COMPONENt
@@ -199,20 +200,24 @@ ContactUsForm.saveContatForm = function _saveContatForm( e ){
 /**
  * _focusLastMessageChat - Focus the last message on the chat component
  *
- * @return {type}  description
+ * @return {type}	description
  */
 ContactUsForm.focusLastMessageChat = function _focusLastMessageChat(msgContainer){
 	var chatHistory = document.getElementById('chat-history');
 	if ( chatHistory ){
-		chatHistory.scrollTop = chatHistory.scrollHeight;
+		// chatHistory.scrollTop = chatHistory.scrollHeight;
+		$(chatHistory).mCustomScrollbar(
+				"scrollTo","bottom",
+				{ scrollInertia:0 }
+		);
 	}
 }
 
  /**
-  * _buildChatComponent - Build chat component
-  *
-  * @param  {type} message Message description
-  */
+	* _buildChatComponent - Build chat component
+	*
+	* @param	{type} message Message description
+	*/
 ContactUsForm.buildChatComponent = function _buildChatComponent(message){
 	// <div class="chat">
 	// <div class="chat-history">
@@ -251,6 +256,15 @@ ContactUsForm.buildChatComponent = function _buildChatComponent(message){
 		ContactUsForm.sendClientMessage(message);
 	}
 
+	$(chatHistoryDiv).mCustomScrollbar({
+		autoHideScrollbar: true
+	});
+
+	setTimeout(function(){
+		ContactUsForm.focusLastMessageChat();
+	}, 1000);
+
+
 	//UGG JQUERY
 	$( "#chat-container" ).fadeIn( "slow" );
 
@@ -260,11 +274,11 @@ ContactUsForm.buildChatComponent = function _buildChatComponent(message){
 /**
  * _buildServerMessage - Build DOM elements from server's message
  *
- * @param  {string} 		message   Message descrition
- * @param  {timestamp} 	createdAt Message createdAt date
- * @param  {boolean} 		read      Meesage read by the rebel team
- * @param  {boolean} 		sending   Meesage is sending
- * @param  {string} 		id      	Meesage ID
+ * @param	{string} 		message	 Message descrition
+ * @param	{timestamp} 	createdAt Message createdAt date
+ * @param	{boolean} 		read			Meesage read by the rebel team
+ * @param	{boolean} 		sending	 Meesage is sending
+ * @param	{string} 		id				Meesage ID
  */
 ContactUsForm.buildServerMessage = function _buildServerMessage(message, createdAt, read, sending, id){
 	// var message = 'default chat message';
@@ -335,25 +349,25 @@ ContactUsForm.buildServerMessage = function _buildServerMessage(message, created
 }
 
  /**
-  * _sendClientMessage - Send the client message to firebase server
-  *
-  * @param  {type} message Message description
-  * @param  {type} user    User object (OPTIONAL)
-  * @return {type}         Firebase Promise
-  */
+	* _sendClientMessage - Send the client message to firebase server
+	*
+	* @param	{type} message Message description
+	* @param	{type} user		User object (OPTIONAL)
+	* @return {type}				 Firebase Promise
+	*/
 ContactUsForm.sendClientMessage = function _sendClientMessage(message){
 	var lastMessage = ContactUsForm.buildClientMessage(message, null, null, true);
 	//TODO REMOVE SETTIMEOUT - JUST FOR TESTING
 	setTimeout(function(){
 		firebaseHelper.sendClientMessage(message).then(function(){
-			console.log('Message  has been sent to the server ');
+			console.log('Message	has been sent to the server ');
 			//CHANGE MESSAGE ICON TO SENT
 			var icon = lastMessage.getElementsByClassName('fa-paper-plane')[0];
 			icon.setAttribute('class', 'fa fa-circle you');
 			icon.setAttribute('title', 'Message sent');
 		}).catch(function(error){
 			console.log('There is an error sending the meesage', error);
-			//CHANGE MESSAGE ICON TO ERROR AND CHANGE CONTAINER'S  BG COLOR
+			//CHANGE MESSAGE ICON TO ERROR AND CHANGE CONTAINER'S	BG COLOR
 			var messageContainer = lastMessage.getElementsByClassName('you-message')[0];
 			messageContainer.setAttribute('class', 'message you-message-error');
 			var iconContainer = lastMessage.getElementsByClassName('message-data-name')[0];
@@ -367,14 +381,14 @@ ContactUsForm.sendClientMessage = function _sendClientMessage(message){
 
 
  /**
-  * _buildClientMessage - Build DOM elements from client's message
-  *
-  * @param  {string} 		message   Message descrition
-  * @param  {timestamp} createdAt Message createdAt date
-  * @param  {boolean} 	read      Meesage read by the rebel team
-  * @param  {boolean} 	sending   Meesage is sending to the server
-  * @param  {string} 	  id   			Meesage ID
-  */
+	* _buildClientMessage - Build DOM elements from client's message
+	*
+	* @param	{string} 		message	 Message descrition
+	* @param	{timestamp} createdAt Message createdAt date
+	* @param	{boolean} 	read			Meesage read by the rebel team
+	* @param	{boolean} 	sending	 Meesage is sending to the server
+	* @param	{string} 		id	 			Meesage ID
+	*/
 ContactUsForm.buildClientMessage = function _buildClientMessage(message, createdAt, read, sending, id){
 	// <li>
 	// 	<div class="message-data">
@@ -447,10 +461,10 @@ ContactUsForm.buildClientMessage = function _buildClientMessage(message, created
 }
 
  /**
-  * _sendBrowserNotification - Send browser notification to the user
-  *
-  * @param  {type} message Custom message
-  */
+	* _sendBrowserNotification - Send browser notification to the user
+	*
+	* @param	{type} message Custom message
+	*/
 ContactUsForm.sendBrowserNotification = function _sendBrowserNotification(message){
 	if ( !ContactUsForm.checkFormFocus() ) {
 		if ( window.Notification ) {
@@ -484,7 +498,7 @@ ContactUsForm.sendBrowserNotification = function _sendBrowserNotification(messag
 /**
  * _buildMessageZone - Build the textarea above the chat
  *
- * @return {DOM}  MessageZone Component
+ * @return {DOM}	MessageZone Component
  */
 ContactUsForm.buildMessageZone = function _buildMessageZone(){
 	var message = document.createElement('textarea');
@@ -535,11 +549,11 @@ ContactUsForm.saveUserInformation = function _saveUserInformation(user) {
 }
 
  /**
-  * _buildDateMessageFormat - Build the date componenet next to the message label
-  *
-  * @param  {type} createdAt Message Created Date
-  * @return {DOM} 					 Date component
-  */
+	* _buildDateMessageFormat - Build the date componenet next to the message label
+	*
+	* @param	{type} createdAt Message Created Date
+	* @return {DOM} 					 Date component
+	*/
 ContactUsForm.buildDateMessageFormat = function _buildDateMessageFormat(createdAt){
 	var date;
 	if ( createdAt ){
