@@ -75,7 +75,7 @@
 								<a href="#about" class="btn btn-main btn-lg scrollto">Find Out More</a>
 								<div class="fb-follow" data-href="https://www.facebook.com/zuck" data-layout="box_count" data-size="small" data-show-faces="true"></div>
 							</div>
-						
+
 						</div>
 
 
@@ -347,40 +347,36 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-12">
-						<form class="contact-form" role="form" action="https://secure.mailjol.net/allforms/u/a5b1c394.php">
-							<input type="text" class="form-control" id="Name" name="Name" placeholder="Name" required>
-							<input type="email" class="form-control" id="Email" name="Email" placeholder="Email" required>
-							<textarea id="Message" name="Message" placeholder="Message" class="form-control" rows="10"></textarea>
-							<button class="btn btn-main btn-lg" type="submit" id="send" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Sending..."><i class="fa fa-paper-plane "></i> Send</button>
-						</form>
-						<div id="result-message" role="alert"></div>
+					<div class="col-md-12" id="form-container">
+						<!--
+						<div class="chat">
+							<div class="chat-history">
+								<ul class="chat-ul">
+									<li>
+										<div class="message-data">
+											<span class="message-data-name"><i class="fa fa-circle you"></i> You</span>
+										</div>
+										<div class="message you-message">
+											A new client?!?! I would love to help them, but where are we going to find the time?
+										</div>
+									</li>
+									<li class="clearfix">
+										<div class="message-data align-right">
+											<span class="message-data-name">RebelStack </span> <i class="fa fa-circle me"></i>
+										</div>
+										<div class="message me-message float-right"> We should take a look at your onboarding and service delivery workflows, for most businesess there are many ways to save time and not compromise quality.	</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+						-->
+						<div class="wrap">
+							<div class="loading">
+								<div class="bounceball"></div>
+								<div class="text">Retriving History</div>
+							</div>
+						</div>
 					</div>
-					<!--div class="col-md-6">
-						<p>Tell us about you and your needs. We'll respond promptly.</p>
-						<p>
-							Or communicate with us directly:
-							<ul class="list-unstyled">
-								<li id="spammerbegone"></li>
-								<script>
-									function getEmail() {
-										return ["info","rebelstack.io"].join("@");
-									}
-									function buildContact() {
-										var a = document.createElement("a");
-										a.href=getEmail();
-										a.innerHTML=getEmail();
-										return a;
-									}
-									document.addEventListener("DOMContentLoaded", function(event) {
-										var i = document.getElementById("spammerbegone");
-										var a = buildContact();
-										i.appendChild(a);
-									});
-								</script>
-							</ul>
-						</p>
-					</div-->
 				</div>
 			</div>
 		</section>
@@ -437,37 +433,37 @@
 		</footer>
 
 		<div class="modal fade" role="dialog" id="thankyou-modal">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title text-center">Thank You</h4>
-		      </div>
-		      <div class="modal-body text-center">
-		        <p>We have received your inquiry, you should have an email confirmation in your inbox. We will get back to you shortly.</p>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		      </div>
-		    </div><!-- /.modal-content -->
-		  </div><!-- /.modal-dialog -->
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title text-center">Thank You</h4>
+					</div>
+					<div class="modal-body text-center">
+						<p>We have received your inquiry, you should have an email confirmation in your inbox. We will get back to you shortly.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 
 		<div class="modal fade" role="dialog" id="error-modal">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title text-center">Error</h4>
-		      </div>
-		      <div class="modal-body text-center">
-		        <p>Something unexpected has occurred, please wait a moment and try again</p>
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		      </div>
-		    </div><!-- /.modal-content -->
-		  </div><!-- /.modal-dialog -->
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title text-center">Error</h4>
+					</div>
+					<div class="modal-body text-center">
+						<p>Something unexpected has occurred, please wait a moment and try again</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -485,6 +481,9 @@
 		<script src="js/owl.carousel.js"></script>
 		<script src="js/jquery.ajaxchimp.min.js"></script>
 		<script src="js/script.js"></script>
+		<script src="js/contactus.js"></script>
+		<script src="js/firebase.js"></script>
+		<script src="js/firebaseHelper.js"></script>
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 ga('create', 'UA-91969728-1', 'auto');

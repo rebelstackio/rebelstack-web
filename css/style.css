@@ -310,7 +310,7 @@ h6 {
   text-decoration: none;
 }
 .section-title {
-  margin-bottom: 70px;
+   margin-bottom: 40px;
 }
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,100i');
 .section-title h3 {
@@ -1827,6 +1827,7 @@ body.internal .blog {
      background-color:#213e55;
 }
 
+
 .about-center{
   font-size: 22px;
   text-align: justify;
@@ -1973,3 +1974,221 @@ body.internal .blog {
          background-color: rgba(0,0,0,0.7);
      }
  }
+
+/* SPINNER */
+.wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.text {
+  color: white;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.bounceball {
+  position: relative;
+  display: inline-block;
+  height: 37px;
+  width: 15px;
+}
+.bounceball:before {
+  position: absolute;
+  content: '';
+  display: block;
+  top: 0;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: white;
+  transform-origin: 50%;
+  animation: bounce 500ms alternate infinite ease;
+}
+
+@keyframes bounce {
+  0% {
+    top: 30px;
+    height: 5px;
+    border-radius: 60px 60px 20px 20px;
+    transform: scaleX(2);
+  }
+  35% {
+    height: 15px;
+    border-radius: 50%;
+    transform: scaleX(1);
+  }
+  100% {
+    top: 0;
+  }
+}
+
+/* CONTACT US CHAT */
+
+.chat .chat-history {
+  padding: 30px 30px 20px;
+  border-bottom: 2px solid white;
+  max-height: 300px;
+  overflow-y: auto;
+}
+.chat .chat-history .message-data {
+  margin-bottom: 15px;
+}
+.chat .chat-history .message-data-time {
+  color: #a8aab1;
+  padding-left: 6px;
+}
+.chat .chat-history .message {
+  color: white;
+  padding: 18px 20px;
+  line-height: 26px;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  width: 90%;
+  position: relative;
+  margin-top: 30px;
+}
+.chat .chat-history  .you-message:after {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    border-width: 0 15px 15px;
+    border-style: solid;
+    border-color: #CCDBDC transparent;
+    display: block;
+    width: 0;
+}
+/** ERROR SENDING MESSAGE **/
+.chat .chat-history .you-message-error:after {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    border-width: 0 15px 15px;
+    border-style: solid;
+    border-color: rgba(241, 92, 92, 0.98) transparent;
+    display: block;
+    width: 0;
+}
+
+.chat .chat-history .you-message {
+  background: #CCDBDC;
+  color:#003366;
+}
+
+/** ERROR SENDING MESSAGE **/
+
+.chat .chat-history .you-message-error{
+  background: rgba(241, 92, 92, 0.98);
+  color:#003366;
+}
+
+.chat .chat-history .me-message {
+  background: #E9724C;
+}
+.chat .chat-history .me-message:after {
+  border-color: #E9724C transparent;
+    right: 20px;
+    top: -15px;
+    left: auto;
+    bottom:auto;
+}
+.chat .chat-message {
+  padding: 30px;
+}
+.chat .chat-message .fa-file-o, .chat .chat-message .fa-file-image-o {
+  font-size: 16px;
+  color: gray;
+  cursor: pointer;
+}
+
+.chat-ul li{
+    list-style-type: none;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.float-right {
+  float: right;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.you {
+  color: #CCDBDC;
+}
+/** ERROR **/
+.you-error {
+  color: rgba(241, 92, 92, 0.98);
+}
+
+.me {
+  color: #E9724C;
+}
+
+.message-zone{
+  margin-top: 10px;
+  resize: none;
+}
+
+/* PULSE */
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  50% {
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+
+  100% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  50% {
+    -webkit-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    transform: scale(0.8);
+  }
+
+  100% {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+}
+
+.faa-pulse.animated,
+.faa-pulse.animated-hover:hover,
+.faa-parent.animated-hover:hover > .faa-pulse {
+  -webkit-animation: pulse 2s linear infinite;
+  animation: pulse 2s linear infinite;
+}
