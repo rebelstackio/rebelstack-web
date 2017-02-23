@@ -609,6 +609,6 @@ ContactUsForm.serverMessagesEvent = function _serverMessagesEvent(){
 }
 
 document.addEventListener("DOMContentLoaded", function(){
-	ContactUsForm.init();
-	ContactUsForm.serverMessagesEvent();
+	// ContactUsForm.init();
+	// ContactUsForm.serverMessagesEvent();
 });
