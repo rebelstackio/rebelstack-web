@@ -422,49 +422,19 @@ ContactUsForm.buildChatComponent = function _buildChatComponent(message){
  * @param	{string} 		id				Meesage ID
  */
 ContactUsForm.buildServerMessage = function _buildServerMessage(message, createdAt, read, sending, id){
-
-
-	var messageExists = document.getElementById('message-container-' + id);
-
-	if ( !messageExists ) {
-		var messageContainer = document.createElement('li');
-		messageContainer.setAttribute('style', 'display:none;');
-		messageContainer.setAttribute('class', 'mar-btm');
+	var chatList = document.getElementById('chat-list');
+	if ( ContactUsForm.checkLastMessage('SERVER') ) {
+		var messages = chatList.getElementsByClassName('mar-btm');
+		var lastMessage = messages[messages.length - 1];
 		if ( id ) {
-			messageContainer.setAttribute('id', 'message-container-' + id);
+			lastMessage.setAttribute('id', 'message-container-' + id);
 		}
 
 		if ( createdAt ) {
-			messageContainer.setAttribute('createdAt', createdAt);
+			lastMessage.setAttribute('createdAt', createdAt);
 		}
 
-		var avatarZone = document.createElement('div');
-		avatarZone.setAttribute('class', 'media-right');
-
-		var avatar = document.createElement('img');
-		avatar.setAttribute('class', 'img-circle img-sm');
-		avatar.setAttribute('alt', 'Client');
-		avatar.setAttribute('src', 'images/man.svg');
-
-
-		var messageTextContainer = document.createElement('div');
-		messageTextContainer.setAttribute('class', 'media-body pad-hor speech-right');
-
-		var speech = document.createElement('div');
-		speech.setAttribute('class', 'speech');
-
-		var linkHeader = document.createElement('a');
-		linkHeader.setAttribute('class', "media-heading");
-
-		var clientName = document.createElement('b');
-
-		var name = document.createTextNode('RebelStack\'s Team');
-
-		var span = document.createElement('span');
-		span.setAttribute('class', 'msg-data-right');
-
-		var i = document.createElement('i');
-		i.setAttribute('class', 'fa fa-clock-o fa-fw');
+		var speech = lastMessage.getElementsByClassName('speech')[0];
 
 		var time = ContactUsForm.buildDateMessageFormat(createdAt);
 
@@ -472,48 +442,117 @@ ContactUsForm.buildServerMessage = function _buildServerMessage(message, created
 		textContainer.setAttribute('class', "msg-right");
 
 		var _message = document.createTextNode(message);
-		textContainer.appendChild(_message);
 
-		clientName.appendChild(name);
-		span.appendChild(i);
+		var span = document.createElement('span');
+		span.setAttribute('style', 'float:right');
 		span.appendChild(time);
-		linkHeader.appendChild(clientName);
-		linkHeader.appendChild(span);
 
-		speech.appendChild(linkHeader);
+		textContainer.appendChild(_message);
+		textContainer.appendChild(span);
 		speech.appendChild(textContainer);
 
-		messageTextContainer.appendChild(speech);
+		//FOCUS LAST MESSAGE
+		ContactUsForm.focusLastMessageChat();
 
-		avatarZone.appendChild(avatar);
+		return lastMessage;
+	} else {
+		var messageExists = document.getElementById('message-container-' + id);
 
-		messageContainer.appendChild(avatarZone);
-		messageContainer.appendChild(messageTextContainer);
+		if ( !messageExists ) {
+			var messageContainer = document.createElement('li');
+			messageContainer.setAttribute('style', 'display:none;');
+			messageContainer.setAttribute('class', 'mar-btm server-message');
+			if ( id ) {
+				messageContainer.setAttribute('id', 'message-container-' + id);
+			}
+
+			if ( createdAt ) {
+				messageContainer.setAttribute('createdAt', createdAt);
+			}
+
+			var avatarZone = document.createElement('div');
+			avatarZone.setAttribute('class', 'media-right');
+
+			var avatar = document.createElement('img');
+			avatar.setAttribute('class', 'img-circle img-sm');
+			avatar.setAttribute('alt', 'Client');
+			avatar.setAttribute('src', 'images/man.svg');
 
 
-		// if ( sending ){
-		// 	icon.setAttribute('class', 'fa fa-paper-plane you faa-pulse animated');
-		// 	icon.setAttribute('aria-hidden', 'true');
-		// 	icon.setAttribute('title', 'Sending message');
-		// } else {
-		// 	icon.setAttribute('class', 'fa fa-circle you');
-		// 	icon.setAttribute('title', 'Message sent');
-		// }
+			var messageTextContainer = document.createElement('div');
+			messageTextContainer.setAttribute('class', 'media-body pad-hor speech-right');
 
-		var chatList = document.getElementById('chat-list');
-		if ( chatList ){
-			chatList.appendChild(messageContainer);
+			var speech = document.createElement('div');
+			speech.setAttribute('class', 'speech');
 
-			//UGG JQUERY
-			$(messageContainer).fadeIn( "slow" );
+			var linkHeader = document.createElement('a');
+			linkHeader.setAttribute('class', "media-heading");
 
-			//LAST CLIENT MESSAGE
-			ContactUsForm.LAST_CLIENT_MESSAGE = messageContainer;
+			var clientName = document.createElement('b');
 
-			//FOCUS LAST MESSAGE
-			ContactUsForm.focusLastMessageChat();
+			var name = document.createTextNode('RebelStack\'s Team');
 
-			return messageContainer;
+			// var span = document.createElement('span');
+			// span.setAttribute('class', 'msg-data-right');
+
+			// var i = document.createElement('i');
+			// i.setAttribute('class', 'fa fa-clock-o fa-fw');
+
+			var time = ContactUsForm.buildDateMessageFormat(createdAt);
+
+			var textContainer = document.createElement('p');
+			textContainer.setAttribute('class', "msg-right");
+
+			var _message = document.createTextNode(message);
+			// textContainer.appendChild(_message);
+
+			var span = document.createElement('span');
+			span.setAttribute('style', 'float:right');
+			span.appendChild(time);
+
+			textContainer.appendChild(_message);
+			textContainer.appendChild(span);
+
+			clientName.appendChild(name);
+			// span.appendChild(i);
+			// span.appendChild(time);
+			linkHeader.appendChild(clientName);
+			// linkHeader.appendChild(span);
+
+			speech.appendChild(linkHeader);
+			speech.appendChild(textContainer);
+
+			messageTextContainer.appendChild(speech);
+
+			avatarZone.appendChild(avatar);
+
+			messageContainer.appendChild(avatarZone);
+			messageContainer.appendChild(messageTextContainer);
+
+
+			// if ( sending ){
+			// 	icon.setAttribute('class', 'fa fa-paper-plane you faa-pulse animated');
+			// 	icon.setAttribute('aria-hidden', 'true');
+			// 	icon.setAttribute('title', 'Sending message');
+			// } else {
+			// 	icon.setAttribute('class', 'fa fa-circle you');
+			// 	icon.setAttribute('title', 'Message sent');
+			// }
+
+			if ( chatList ){
+				chatList.appendChild(messageContainer);
+
+				//UGG JQUERY
+				$(messageContainer).fadeIn( "slow" );
+
+				//SAVE LAST MESSAGE TYPE
+				ContactUsForm.LAST_MESSAGE_TYPE = 'SERVER';
+
+				//FOCUS LAST MESSAGE
+				ContactUsForm.focusLastMessageChat();
+
+				return messageContainer;
+			}
 		}
 	}
 }
@@ -562,93 +601,145 @@ ContactUsForm.sendClientMessage = function _sendClientMessage(message){
 	* @param	{string} 		id	 			Meesage ID
 	*/
 ContactUsForm.buildClientMessage = function _buildClientMessage(message, createdAt, read, sending, id){
-
-	var messageContainer = document.createElement('li');
-	messageContainer.setAttribute('style', 'display:none;');
-	messageContainer.setAttribute('class', 'mar-btm');
-	if ( id ) {
-		messageContainer.setAttribute('id', 'message-container-' + id);
-	}
-	if ( createdAt ) {
-		messageContainer.setAttribute('createdAt', createdAt)
-	}
-
-	var avatarZone = document.createElement('div');
-	avatarZone.setAttribute('class', 'media-left');
-
-	var avatar = document.createElement('img');
-	avatar.setAttribute('class', 'img-circle img-sm');
-	avatar.setAttribute('alt', 'Client');
-	avatar.setAttribute('src', 'images/man2.svg');
-
-
-	var messageTextContainer = document.createElement('div');
-	messageTextContainer.setAttribute('class', 'media-body pad-hor');
-
-	var speech = document.createElement('div');
-	speech.setAttribute('class', 'speech');
-
-	var linkHeader = document.createElement('a');
-	linkHeader.setAttribute('class', "media-heading");
-
-	var clientName = document.createElement('b');
-
-	var name = document.createTextNode('You');
-
-	var span = document.createElement('span');
-	span.setAttribute('class', 'msg-data-left');
-
-	var i = document.createElement('i');
-	i.setAttribute('class', 'fa fa-clock-o fa-fw');
-
-	var time = ContactUsForm.buildDateMessageFormat(createdAt);
-
-	var textContainer = document.createElement('p');
-	textContainer.setAttribute('class', "msg-left");
-
-	var _message = document.createTextNode(message);
-	textContainer.appendChild(_message);
-
-	clientName.appendChild(name);
-	span.appendChild(i);
-	span.appendChild(time);
-	linkHeader.appendChild(clientName);
-	linkHeader.appendChild(span);
-
-	speech.appendChild(linkHeader);
-	speech.appendChild(textContainer);
-
-	messageTextContainer.appendChild(speech);
-
-	avatarZone.appendChild(avatar);
-
-	messageContainer.appendChild(avatarZone);
-	messageContainer.appendChild(messageTextContainer);
-
-	//TODO HANDLE COMPONENT	SENDING MESSAGE
-	// if ( sending ){
-	// 	icon.setAttribute('class', 'fa fa-paper-plane you faa-pulse animated');
-	// 	icon.setAttribute('aria-hidden', 'true');
-	// 	icon.setAttribute('title', 'Sending message');
-	// } else {
-	// 	icon.setAttribute('class', 'fa fa-circle you');
-	// 	icon.setAttribute('title', 'Message sent');
-	// }
-
 	var chatList = document.getElementById('chat-list');
-	chatList.appendChild(messageContainer);
+	if ( ContactUsForm.checkLastMessage('CLIENT') ) {
+		var messages = chatList.getElementsByClassName('mar-btm');
+		var lastMessage = messages[messages.length - 1];
+		var speech = lastMessage.getElementsByClassName('speech')[0];
 
-	//UGG JQUERY
-	$(messageContainer).fadeIn( "slow" );
+		var time = ContactUsForm.buildDateMessageFormat(createdAt);
 
-	//LAST CLIENT MESSAGE
-	ContactUsForm.LAST_CLIENT_MESSAGE = messageContainer;
+		if ( id ) {
+			lastMessage.setAttribute('id', 'message-container-' + id);
+		}
 
-	//FOCUS LAST MESSAGE
-	ContactUsForm.focusLastMessageChat();
+		if ( createdAt ) {
+			lastMessage.setAttribute('createdAt', createdAt);
+		}
 
-	return messageContainer;
+		var textContainer = document.createElement('p');
+		textContainer.setAttribute('class', "msg-left");
 
+		//ADD STYLE WHEN
+		if ( sending ) {
+			textContainer.setAttribute('style' , 'background-color: #97c2c6;');
+			setTimeout(function(){
+				textContainer.setAttribute('style' , '');
+			}, 2000);
+		}
+
+		var _message = document.createTextNode(message);
+
+		var span = document.createElement('span');
+		span.setAttribute('style', 'float:right');
+		span.appendChild(time);
+
+		textContainer.appendChild(_message);
+		textContainer.appendChild(span);
+		speech.appendChild(textContainer);
+
+		//FOCUS LAST MESSAGE
+		ContactUsForm.focusLastMessageChat();
+		
+		return lastMessage;
+	} else {
+		var messageContainer = document.createElement('li');
+		messageContainer.setAttribute('style', 'display:none;');
+		messageContainer.setAttribute('class', 'mar-btm client-message');
+		if ( id ) {
+			messageContainer.setAttribute('id', 'message-container-' + id);
+		}
+		if ( createdAt ) {
+			messageContainer.setAttribute('createdAt', createdAt)
+		}
+
+		var avatarZone = document.createElement('div');
+		avatarZone.setAttribute('class', 'media-left');
+
+		var avatar = document.createElement('img');
+		avatar.setAttribute('class', 'img-circle img-sm');
+		avatar.setAttribute('alt', 'Client');
+		avatar.setAttribute('src', 'images/man2.svg');
+
+
+		var messageTextContainer = document.createElement('div');
+		messageTextContainer.setAttribute('class', 'media-body pad-hor');
+
+		var speech = document.createElement('div');
+		speech.setAttribute('class', 'speech');
+
+		var linkHeader = document.createElement('a');
+		linkHeader.setAttribute('class', "media-heading");
+
+		var clientName = document.createElement('b');
+
+		var name = document.createTextNode('You');
+
+		// var span = document.createElement('span');
+		// span.setAttribute('class', 'msg-data-left');
+
+		// var i = document.createElement('i');
+		// i.setAttribute('class', 'fa fa-clock-o fa-fw');
+
+		// var time = ContactUsForm.buildDateMessageFormat(createdAt);
+		var time = ContactUsForm.buildDateMessageFormat(createdAt);
+
+		var textContainer = document.createElement('p');
+		textContainer.setAttribute('class', "msg-left");
+
+		var _message = document.createTextNode(message);
+
+		var span = document.createElement('span');
+		span.setAttribute('style', 'float:right');
+		span.appendChild(time);
+
+		textContainer.appendChild(_message);
+		textContainer.appendChild(span);
+
+		clientName.appendChild(name);
+		// span.appendChild(i);
+		// span.appendChild(time);
+		linkHeader.appendChild(clientName);
+		// linkHeader.appendChild(span);
+
+		speech.appendChild(linkHeader);
+		speech.appendChild(textContainer);
+
+		messageTextContainer.appendChild(speech);
+
+		avatarZone.appendChild(avatar);
+
+		messageContainer.appendChild(avatarZone);
+		messageContainer.appendChild(messageTextContainer);
+
+		//TODO HANDLE COMPONENT	SENDING MESSAGE
+		// if ( sending ){
+		// 	icon.setAttribute('class', 'fa fa-paper-plane you faa-pulse animated');
+		// 	icon.setAttribute('aria-hidden', 'true');
+		// 	icon.setAttribute('title', 'Sending message');
+		// } else {
+		// 	icon.setAttribute('class', 'fa fa-circle you');
+		// 	icon.setAttribute('title', 'Message sent');
+		// }
+
+		chatList.appendChild(messageContainer);
+
+		//UGG JQUERY
+		$(messageContainer).fadeIn( "slow" );
+
+		//SAVE LAST MESSAGE TYPE
+		ContactUsForm.LAST_MESSAGE_TYPE = 'CLIENT';
+
+		//FOCUS LAST MESSAGE
+		ContactUsForm.focusLastMessageChat();
+
+		return messageContainer;
+	}
+}
+
+ContactUsForm.checkLastMessage = function _checkLastMessage(type){
+	var chatList = document.getElementById('chat-list');
+	return ContactUsForm.LAST_MESSAGE_TYPE == type;
 }
 
  /**
@@ -788,12 +879,13 @@ ContactUsForm.buildDateMessageFormat = function _buildDateMessageFormat(createdA
 		date = new Date();
 	}
 
-	var options = {
-	 	year: "numeric", month: "short",
-		day: "numeric"
-	};
+	// var options = {
+	//  	year: "numeric", month: "short",
+	// 	day: "numeric"
+	// };
 
-	var strDate = date.toLocaleTimeString("en-us", options);
+	// var strDate = date.toLocaleTimeString("en-us", options);
+	var strDate = date.toLocaleTimeString("en-us");
 	var time = document.createTextNode(strDate);
 	return time;
 }
