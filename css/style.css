@@ -2026,7 +2026,7 @@ body.internal .blog {
 }
 
 /* CONTACT US CHAT */
-
+/*
 .chat .chat-history {
   padding: 30px 30px 20px;
   border-bottom: 2px solid white;
@@ -2062,7 +2062,7 @@ body.internal .blog {
     display: block;
     width: 0;
 }
-/** ERROR SENDING MESSAGE **/
+/** ERROR SENDING MESSAGE **
 .chat .chat-history .you-message-error:after {
     content: "";
     position: absolute;
@@ -2080,7 +2080,7 @@ body.internal .blog {
   color:#003366;
 }
 
-/** ERROR SENDING MESSAGE **/
+/** ERROR SENDING MESSAGE **
 
 .chat .chat-history .you-message-error{
   background: rgba(241, 92, 92, 0.98);
@@ -2133,7 +2133,7 @@ body.internal .blog {
 .you {
   color: #CCDBDC;
 }
-/** ERROR **/
+/** ERROR **
 .you-error {
   color: rgba(241, 92, 92, 0.98);
 }
@@ -2249,7 +2249,7 @@ body.internal .blog {
 .nano {
     position: relative;
     width: 100%;
-    height: 100%;
+    height:280px;
     overflow: hidden;
 }
 .nano>.nano-content {
@@ -2260,6 +2260,7 @@ body.internal .blog {
     right: 0;
     bottom: 0;
     left: 0;
+    right: -17px;
 }
 .pad-all {
     padding: 15px;
@@ -2343,6 +2344,29 @@ body.internal .blog {
     text-align: left;
     padding-left: 0px;
 }
+
+.msg-data-left{
+  text-align:right;
+  float:right;
+  font-size: 10px;
+}
+.msg-left{
+  margin-bottom:0px;
+  text-align: justify;
+  font-size:13px
+}
+
+.msg-data-right{
+  text-align:right;
+  float: right;
+  font-size: 10px;
+}
+.msg-right{
+  margin-bottom:0px;
+  text-align:justify;
+  font-size:13px
+}
+
 .pad-hor {
     /* padding-left: 15px; */
     padding-right: 15px;
@@ -2360,6 +2384,7 @@ body.internal .blog {
     border-color: #5fa2dd;
     color: #fff !important;
 }
+
 .btn {
     cursor: pointer;
     /* background-color: transparent; */
@@ -2505,4 +2530,19 @@ input.material::-moz-placeholder { /* Mozilla Firefox 19+ */
 }
 input.material:-ms-input-placeholder { /* Internet Explorer 10-11 */
    color:    white;
+}
+
+/*** DATE ENTRIES ***/
+div.hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  border-top: 1px solid white;
+  text-align: center;
+  height: 0px;
+  line-height: 0px;
+}
+
+.hr-title {
+  background-color: #bf4d28;
 }
