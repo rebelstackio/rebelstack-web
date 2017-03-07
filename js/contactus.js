@@ -10,7 +10,7 @@ ContactUsForm.FOCUSED = false;
 
 ContactUsForm.LAST_MESSAGE_FROM_CLIENT = true;
 
-ContactUsForm.TRUNCATED_LENGTH = 50;
+ContactUsForm.TRUNCATED_LENGTH = 40;
 
 ContactUsForm.LAST_CLIENT_MESSAGE = null;
 
@@ -640,7 +640,7 @@ ContactUsForm.buildClientMessage = function _buildClientMessage(message, created
 
 		//FOCUS LAST MESSAGE
 		ContactUsForm.focusLastMessageChat();
-		
+
 		return lastMessage;
 	} else {
 		var messageContainer = document.createElement('li');
@@ -835,6 +835,11 @@ ContactUsForm.buildMessageZone = function _buildMessageZone(){
 			var message = event.target.value;
 			event.target.value = "";
 			ContactUsForm.sendClientMessage(message);
+		} else {
+			var message = event.target.value;
+			if ( message.length > ContactUsForm.TRUNCATED_LENGTH ){
+				event.target.value = message.slice(0, -1);
+			}
 		}
 	});
 
@@ -842,8 +847,10 @@ ContactUsForm.buildMessageZone = function _buildMessageZone(){
 		event.preventDefault();
 		var messageZone = document.getElementById('message-zone');
 		var message = messageZone.value;
-		messageZone.value = "";
-		ContactUsForm.sendClientMessage(message);
+		if ( message && message.length ){
+			messageZone.value = "";
+			ContactUsForm.sendClientMessage(message);
+		}
 	});
 	return row;
 }
