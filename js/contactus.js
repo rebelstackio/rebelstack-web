@@ -833,8 +833,10 @@ ContactUsForm.buildMessageZone = function _buildMessageZone(){
 		if (key === ContactUsForm.SEND_MESSAGE_KEY){
 			event.preventDefault();
 			var message = event.target.value;
-			event.target.value = "";
-			ContactUsForm.sendClientMessage(message);
+			if ( message.length ) {
+				event.target.value = "";
+				ContactUsForm.sendClientMessage(message);
+			}
 		} else {
 			var message = event.target.value;
 			if ( message.length > ContactUsForm.TRUNCATED_LENGTH ){
