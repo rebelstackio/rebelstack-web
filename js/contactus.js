@@ -18,12 +18,6 @@ ContactUsForm.SEND_MESSAGE_KEY = 13;
 
 ContactUsForm.DEFAULT_DATE_ENTRY = 'Today';
 
-//TODO HANDLE DATES LIKE SLACK
-//TODO JOIN MESSAGE WHEN THE LAST USER SEND A MESSAGE AGAIN
-
-//HELPER FUNCTIONS
-
-
 
 /**
  * diffDates - Get days of difference between dates
@@ -919,6 +913,10 @@ ContactUsForm.checkFormFocus = function _checkFormFocus() {
 	return body.scrollTop >= ContactUsForm.CONTACTFORM_POSITION;
 }
 
+
+/**
+ * _serverMessagesEvent - New server messages
+ */
 ContactUsForm.serverMessagesEvent = function _serverMessagesEvent(){
 	firebaseHelper.newServeMessage(function(data){
 		var message = data.val();
