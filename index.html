@@ -8,14 +8,15 @@
 		<title>Rebelstack.io</title>
 
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i" rel="stylesheet">
-		<link href='http://fonts.googleapis.com/css?family=Oswald:400,700' rel='stylesheet' type='text/css'>
-		<link href="http://fonts.googleapis.com/css?family=Roboto:100,400" rel="stylesheet">
+		<link href='https://fonts.googleapis.com/css?family=Oswald:400,700' rel='stylesheet' type='text/css'>
+		<link href="https://fonts.googleapis.com/css?family=Roboto:100,400" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.css">
 		<!-- Bootstrap -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/font-awesome.min.css" rel="stylesheet">
 
 		<script src="js/shadycss.min.js"></script>
-
+		<script src="rebelchat.js"></script>
 		<link href="css/owl.carousel.css" rel="stylesheet">
 		<link href="css/owl.theme.css" rel="stylesheet">
 		<link href="css/owl.transitions.css" rel="stylesheet">
@@ -62,7 +63,7 @@
 			</nav>
 		</header>
 
-		<section class="home" id="home" data-stellar-background-ratio="0.4"   data-vide-bg="/video/rebelstackio" data-vide-options="loop: true, muted: false, position: 0% 0%">
+		<section class="home" id="home" data-stellar-background-ratio="0.4"   data-vide-bg="./video/rebelstackio" data-vide-options="loop: true, muted: false, position: 0% 0%">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
@@ -154,70 +155,81 @@
 			</div>
 		</section>
 
-
 		<section class="portfolio" id="portfolio">
 			<div class="container-fluid ">
 				<div class="row">
-					<div class="col-md-12 no-padding ">
+					<div class="col-md-12">
 						<div class="section-title st-center">
 							<h3>Recent Projects</h3>
+							<p>Learn more about our latest projects</p>
 						</div>
-
-						<div class="grid">
-							<figure class="portfolio-item" data-groups='["codding"]'>
-								<img src="photos/portfolio.jpg" alt=""/>
-								<figcaption>
-									<h2><span>VideoCheckout</span></h2>
-									<p>VideoCheckout increases conversion of Facebook Marketing Campaigns</p>
-									<a href="/apps/vco" class="btn btn-main"><i class="fa fa-link"></i> View more</a>
-								</figcaption>
-							</figure>
-							<figure class="portfolio-item" data-groups='["design"]'>
-								<img src="photos/portfolio2.jpg" alt=""/>
-								<figcaption>
-									<h2>Game <span>Metrigon</span></h2>
-									<p>For AppleStore and Google Play Store</p>
-									<a href="/apps/metrigon" class="btn btn-main"><i class="fa fa-link"></i> View more</a>
-								</figcaption>
-							</figure>
-							<figure class="portfolio-item" data-groups='["codding"]'>
-								<img src="photos/portfolioQCHE.jpg" alt=""/>
-								<figcaption>
-									<h2>App <span>WhatsFun.in</span></h2>
-									<p>Location-based events search app for desktop, iOS, android</p>
-									<a href="/apps/qche" class="btn btn-main"><i class="fa fa-link"></i> View more</a>
-								</figcaption>
-							</figure>
-							<figure class="portfolio-item" data-groups='["codding"]'>
-								<img src="photos/portfolioWKO.jpg" alt=""/>
-								<figcaption>
-									<h2>App <span>WKO Instructor App</span></h2>
-									<p>Progressive/Responsive app reaching desktop, iOS, android</p>
-									<a href="/apps/wko" class="btn btn-main"><i class="fa fa-link"></i> View more</a>
-								</figcaption>
-							</figure>
-							<figure class="portfolio-item" data-groups='["codding"]'>
-								<img src="photos/portfolioCHAKA.jpg" alt=""/>
-								<figcaption>
-									<h2>App <span>CHAKAchat</span></h2>
-									<p>Slack-live messaging app based around events</p>
-									<a href="/apps/chakachat" class="btn btn-main"><i class="fa fa-link"></i> View more</a>
-								</figcaption>
-							</figure>
-							<figure class="portfolio-item" data-groups='["codding"]'>
-								<img src="photos/sigma.svg" alt=""/>
-								<figcaption>
-									<h2>Sigma <span>Web App</span></h2>
-									<p>Application for water management for the agriculture sector</p>
-									<a href="/apps/sigma" class="btn btn-main"><i class="fa fa-link"></i> View more</a>
-								</figcaption>
-							</figure>
-						</div>
-
 					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="st-feature">
+						<div class="st-feature-img">
+							<img src="images/apps/apps_vco.png" class="img-responsive"/>
+						</div>
+						<strong class="st-feature-title">VideoCheckout <small>(E-Commerce)</small></strong>
+						<p class="text-justify">VideoCheckout increases conversion of facebook marketing campaigns</p>
+					</div>
+					</div>
+					<div class="col-md-4">
+						<div class="st-feature">
+						<div class="st-feature-img">
+							<img src="images/apps/apps_metrigon.png" class="img-responsive"/>
+						</div>
+						<strong class="st-feature-title">Metrigon <small>(Mobile Gaming)</small></strong>
+						<p class="text-justify">Metrigon is an original puzzle game that requires critical thinking and spatial awareness skills to earn top scores.</p>
+					</div>
+					</div>
+					<div class="col-md-4">
+
+						<div class="st-feature">
+							<div class="st-feature-img">
+								<img src="images/apps/apps_sigma.png" class="img-responsive"/>
+							</div>
+							<strong class="st-feature-title">Sigma Cloud <small>(system analytics reporting)</small></strong>
+							<p class="text-justify">Progressive web app for  analytics reporting</p>
+						</div>
+					</div>
+
+
+				</div>
+				<div class="row">
+
+						<div class="col-md-4">
+							<div class="st-feature">
+								<div class="st-feature-img">
+									<img src="images/apps/apps_worldkite.png" class="img-responsive"/>
+								</div>
+								<strong class="st-feature-title">Worldkite <small>(system analytics reporting)</small></strong>
+								<p class="text-justify">Progressive web app for  analytics reporting</p>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="st-feature">
+							<div class="st-feature-img">
+								<img src="images/apps/apps_qchevere.png" class="img-responsive"/>
+							</div>
+							<strong class="st-feature-title">Q'Chevere <small>(Social Events)</small></strong>
+							<p class="text-justify">Location based events search app for desktop, IOS, Android.</p>
+						</div>
+						</div>
+							<div class="col-md-4">
+								<div class="st-feature">
+									<div class="st-feature-img">
+										<img src="images/apps/apps_yakchat.png" class="img-responsive"/>
+									</div>
+									<strong class="st-feature-title">YakChat <small>(instant messaging)</small></strong>
+									<p class="text-justify">SLACK-LIVE MESSAGING APP BASED AROUND EVENTS</p>
+								</div>
+							</div>
 				</div>
 			</div>
 		</section>
+
 
 		<section class="testimonials" id="testimonials">
 			<div class="container">
@@ -269,72 +281,6 @@
 		</section>
 
 
-		<!--section class="blog" id="blog">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<div class="section-title st-center">
-							<h3>Recent News</h3>
-							<p>Some Recent News from Blog</p>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-8">
-						<div class="blog-post">
-							<div class="post-meta">
-								<span class="author"><a href="#"><img src="photos/reinpetersen.jpg" alt="Author Photo" text="Rein Petersen"> Rein Petersen</a></span>,
-								<span>At <strong>29 September, 2014</strong></span>
-							</div>
-							<h2 class="post-title"><a href="articles/the-real-cost-of-employment/">The Real Cost of Employment</a></h2>
-							<div class="post-thumb"><a href="articles/the-real-cost-of-employment/"><img src="photos/the-real-cost-of-employment.jpg" alt="" class="img-responsive"></a></div>
-							<div class="post-content">
-								<p>Ask any manager or business owner if they feel they have a good sense of the real costs of in-house full-time employment within their organization and you’ll typically receive confident acknowledgments about payroll taxes, vacation pay, training costs, etcetera.</p>
-								<p class="text-right"><a href="articles/the-real-cost-of-employment/" class="more-link">Continue reading ▶</a></p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="widgets">
-
-							<div class="widget">
-								<p>
-									<a href="http://www.excelsoftsources.com/excel-near-shore-brochure-2014.compressed.pdf" target="_blank">
-										<img src="images/brochure-btn.png" alt="Download brochure button">
-									</a>
-								</p>
-							</div>
-
-							<div class="widget widget-contact">
-								<h2 class="widget-title">Contact</h2>
-								<ul>
-									<li>
-										<address>
-											<strong>USA:</strong><br>
-											+1 (435) 649-6386 <br>
-											7281 E 1000 N <br>
-											Huntsville, UT 84317
-										</address>
-									</li>
-									<li>
-										<address>
-											<strong>Costa Rica:</strong><br>
-											+011(506) 2524.2760 <br>
-											+1 (435) 649-6386<br>
-											Calle 33, Avenidas 2 y 8 <br>
-											Los Yoses 10104 <br>
-											San José, Costa Rica, <br>
-											Central America
-										</address>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section -->
-
 
 
 		<section class="contact" id="contact">
@@ -347,40 +293,33 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-12" id="form-container">
-						<!--
-						<div class="chat">
-							<div class="chat-history">
-								<ul class="chat-ul">
-									<li>
-										<div class="message-data">
-											<span class="message-data-name"><i class="fa fa-circle you"></i> You</span>
-										</div>
-										<div class="message you-message">
-											A new client?!?! I would love to help them, but where are we going to find the time?
-										</div>
-									</li>
-									<li class="clearfix">
-										<div class="message-data align-right">
-											<span class="message-data-name">RebelStack </span> <i class="fa fa-circle me"></i>
-										</div>
-										<div class="message me-message float-right"> We should take a look at your onboarding and service delivery workflows, for most businesess there are many ways to save time and not compromise quality.	</div>
-									</li>
-								</ul>
-							</div>
-						</div>
-						-->
+					<div class="col-md-12" id="chat-cmp-container" style="height:400px">
+
 						<div class="wrap">
 							<div class="loading">
 								<div class="bounceball"></div>
-								<div class="text">Retriving History</div>
+								<div class="text">Loading Chat App</div>
 							</div>
 						</div>
+						
 					</div>
+					<script>
+						document.addEventListener("DOMContentLoaded", function(event) {
+							var chatNode = document.getElementById("chat-cmp-container");
+							while (chatNode.firstChild) {
+								chatNode.removeChild(chatNode.firstChild);
+							}
+							const chat = new RebelChat({
+								el: '#chat-cmp-container'
+							});
+						});
+					</script>
 				</div>
 			</div>
 		</section>
-		<section class="footer-technology hidden">
+
+
+	<section class="footer-technology hidden">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-1 text-center">
@@ -423,14 +362,6 @@
 				</div>
 			</div>
 		</section>
-		<footer class="site-footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">&copy; Rebelstack.io
-					</div>
-				</div>
-			</div>
-		</footer>
 
 		<div class="modal fade" role="dialog" id="thankyou-modal">
 			<div class="modal-dialog" role="document">
@@ -474,6 +405,7 @@
 		<script src="js/jquery.stellar.js"></script>
 		<script src="js/jquery.appear.js"></script>
 		<script src="js/jquery.vide.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.3/jquery.mCustomScrollbar.min.js"></script>
 		<script src="js/jquery.nicescroll.min.js"></script>
 		<script src="js/jquery.countTo.js"></script>
 		<script src="js/jquery.shuffle.modernizr.js"></script>

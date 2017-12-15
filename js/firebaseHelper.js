@@ -60,10 +60,23 @@ firebaseHelper.init = function _init(){
  * @return {Promise}      Firebase Promise
  */
 firebaseHelper.saveClientInfo = function _saveClientInfo(user){
-	user.visitDate = firebase.database.ServerValue.TIMESTAMP;
-	user.lastActivity = firebase.database.ServerValue.TIMESTAMP;
-	var userPath = '/clients/' + firebaseHelper.REBEL_KEY +'/' ;
-	return firebase.database().ref().child(userPath).set(user);
+	firebaseHelper.REBEL_KEY = firebase.database().ref().child('clients').push().key;
+	var updates = {};
+	var newClient = {
+		messages: {},
+		visitDate : firebase.database.ServerValue.TIMESTAMP,
+		lastActivity : firebase.database.ServerValue.TIMESTAMP,
+		name: user.name,
+		email: user.email
+	};
+	updates['/clients/' + firebaseHelper.REBEL_KEY] = newClient;
+
+	return firebase.database().ref().update(updates);
+
+	// user.visitDate = firebase.database.ServerValue.TIMESTAMP;
+	// user.lastActivity = firebase.database.ServerValue.TIMESTAMP;
+	// var userPath = '/clients/' + firebaseHelper.REBEL_KEY +'/' ;
+	// return firebase.database().ref().child(userPath).set(user);
 }
 
 

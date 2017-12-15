@@ -3,6 +3,10 @@ $(function () {
 	$(window).stellar({
 		horizontalScrolling: false
 	});
+	$(".chat-history").stellar({
+		horizontalScrolling: false
+	});
+
 
 	// Custom Scrollbar
 	var nice = $("html").niceScroll({
