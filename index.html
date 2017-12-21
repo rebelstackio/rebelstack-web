@@ -16,6 +16,7 @@
 		<link href="css/font-awesome.min.css" rel="stylesheet">
 
 		<script src="js/shadycss.min.js"></script>
+		<script src="rebelchat.js"></script>
 		<link href="css/owl.carousel.css" rel="stylesheet">
 		<link href="css/owl.theme.css" rel="stylesheet">
 		<link href="css/owl.transitions.css" rel="stylesheet">
@@ -62,7 +63,7 @@
 			</nav>
 		</header>
 
-		<section class="home" id="home" data-stellar-background-ratio="0.4"   data-vide-bg="./video/rebelstackio" data-vide-options="loop: true, muted: false, position: 0% 0%">
+		<section class="home" id="home" data-stellar-background-ratio="0.4"   data-vide-bg="./video/rebelstackio.webm" data-vide-options="loop: true, muted: false, position: 0% 0%">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
@@ -261,17 +262,6 @@
 										</blockquote>
 									</div>
 								</li>
-								<li>
-									<div class="testimonial">
-										<div class="testimonial-img">
-											<img src="photos/client3.jpg" alt="">
-										</div>
-										<blockquote>
-											<p>Rebelstack has been providing software development services to us for the past three years. After year one the work they had done gave me the confidence I needed to increase our investment in Rebelstack. As a testament to our confidence we just kicked off a second team to help us deliver on a new set of projects. We are very pleased with how Rebelstack has helped us deliver on our critical business goals.</p>
-											<footer>Derek Mackie, <cite title="Source Title">VP of Development, Pay By Phone.</cite></footer>
-										</blockquote>
-									</div>
-								</li>
 							</ul>
 						</div>
 					</div>
@@ -292,11 +282,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-6">
-						We would be glad to talk with you
-						We’ve worked on a variety of projects with a wide range of clients, each with a unique problem and perspective.
-					</div>
-					<div class="col-md-6" id="form-container">
+					<div class="col-md-12" id="chat-cmp-container" style="height:400px">
 
 						<div class="wrap">
 							<div class="loading">
@@ -306,6 +292,17 @@
 						</div>
 						
 					</div>
+					<script>
+						document.addEventListener("DOMContentLoaded", function(event) {
+							var chatNode = document.getElementById("chat-cmp-container");
+							while (chatNode.firstChild) {
+								chatNode.removeChild(chatNode.firstChild);
+							}
+							const chat = new RebelChat({
+								el: '#chat-cmp-container'
+							});
+						});
+					</script>
 				</div>
 			</div>
 		</section>
