@@ -14,12 +14,7 @@ video {
     background-size: cover;
     transition: 1s opacity;
 }
-.container {
-    position: relative;
-    z-index: 1000
-}
-
-.container a.btn-main {
+.container > .row .st-home-unit * {
     position: relative;
     z-index: 1000
 }
