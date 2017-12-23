@@ -1,7 +1,7 @@
 .home {
     background: url('../video/rebelstackio.jpg') no-repeat;
     background-size: cover;
-    z-index: -101
+    z-index: 1
 }
 video { 
     position: absolute;
@@ -9,11 +9,17 @@ video {
     left: 50%;
     width: 100%;
     height: auto;
-    z-index: -100;
+    z-index: 2;
     transform: translateX(-50%) translateY(-50%);
     background-size: cover;
     transition: 1s opacity;
 }
 .container {
-    z-index: 100
+    position: relative;
+    z-index: 1000
+}
+
+.container a.btn-main {
+    position: relative;
+    z-index: 1000
 }
